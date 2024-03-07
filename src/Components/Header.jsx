@@ -1,0 +1,45 @@
+import React from "react";
+import logo from "/src/assets/logo.png";
+import "../App.css";
+
+export default function Header() {
+  return (
+    <nav
+      className="navbar navbar-expand-lg navbar-light fixed-top"
+      // style={{
+      //   borderBottom: "0.1px solid var(--grey)",
+      // }}
+      id="navbar"
+    >
+      <div className="container-fluid">
+        <a className="navbar-brand" href="#">
+          <img
+            src={logo}
+            alt="Logo"
+            width="60"
+            height="60"
+            className="d-inline-block align-text-center"
+          />
+          <h5 className="d-inline-block align-text-center">Samara Comp. Ltd</h5>
+        </a>
+      </div>
+      <div>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <a className="nav-link active" aria-current="page" href="#">
+                Vehicles
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                Exeats
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div className="department-badge">Reception</div>
+    </nav>
+  );
+}

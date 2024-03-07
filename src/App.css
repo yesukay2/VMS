@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200&family=Playfair+Display:ital@1&family=Poppins:wght@300;400;600;700&display=swap');
+
+
+/* general variables */
+:root {
+    --white: #fff;
+    --black: #1c2b2d;
+    --blue: #31326f;
+    --light-blue: #005490;
+    --red: #b80f0f;
+    --yellow: #ffd166;
+    --green: #1a9b21;
+    --light-green: #5adb61f9;
+    --orange: #db6400;
+    --deep-orange: #ff8c00;
+    --light-orange: #ff8c008b;
+    --grey: #eee;
+    --dark-grey: #393f49;
+}
+
+body {
+    font-family: 'Playfair Display', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--black);
+    margin-top: 60px;
+}
+
+.body-wrapper {
+    display: block;
+    overflow: scroll;
+    margin-bottom: 5rem;
+}
+
+.container {
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1.5em;
+
+}
+
+.department-badge {
+    color: var(--black);
+    border: var(--deep-orange);
+    background: var(--white);
+    border: 1px solid var(--green);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    padding: 10px 10px;
+    margin-left: 2rem;
+    margin-right: 1rem;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-transform: uppercase;
+
+}
+
+.page-title {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.page-guide {
+    font-size: 0.9rem;
+}
+
+/* navbar */
+
+#navbar {
+    height: 60px;
+    border-bottom: 0.1px solid var(--grey);
+    z-index: 999;
+    background: var(--white);
+}
+
+.active {
+    color: var(--orange) !important;
+}
+
+#logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    object-fit: fill;
+    margin: 0 auto;
+    display: block;
+}
+
+
+
+
+
+
+
+/* footer */
+
+#footer {
+    color: var(--black);
+    border-top: 0.1px solid var(--grey);
+    background: var(--grey);
+    height: 80px;
+    display: block;
+}
+
+
+
+/* form */
+
+.form-wrapper {
+    background: var(--grey);
+    padding: 5rem 10rem;
+    border-radius: 0.7rem;
+}
+
+.form-icon {
+    font-size: 2.5rem;
+    color: var(--green);
+    background: var(--yellow);
+    padding: 0.5rem;
+    border-radius: 20%;
+}
+
+#tripPurposeInput {
+    height: 120px;
+    width: 300px
+}
+
+.formInput {
+    border: 0.1px solid var(--deep-orange);
+    border-radius: 0.3rem;
+    height: 2.5rem;
+    width: 20rem;
+}
+
+.requestformInput {
+    margin-left: 1rem;
+    border: 0.1px solid var(--deep-orange);
+    border-radius: 0.3rem;
+    height: 2rem;
+    width: 10rem;
+}
+
+.form-text {
+    font-size: 0.7rem;
+}
+
+.submit-btn-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.submit-btn-orange {
+    background: var(--orange);
+    color: var(--white);
+}
+
+.submit-btn-green {
+    background: var(--green);
+    color: var(--white);
+}
+
+/* Register */
+
+.registerInputCluster {
+    margin-right: 1rem;
+}
