@@ -14,12 +14,14 @@ export default function RequestExeat() {
         <form className="form-wrapper">
           <div className="mb-4">
             <h6>Vehicle Details</h6>
+
             <PiCarLight className="form-icon " />
             <input
               type="text"
               placeholder="Vehicle Number"
               className="requestformInput"
             />
+            <p className="mb-0 mt-0 form-text"> Example: GT 1122 24</p>
           </div>
           <div className="mb-4">
             <h6>Destination</h6>
@@ -29,7 +31,6 @@ export default function RequestExeat() {
               type="text"
               placeholder="Vehicle Reg. Number"
             />
-            <p className="mb-0 mt-0 form-text"> Example: GT 1122 24</p>
           </div>
           <div className="mb-4">
             <h6>Driver ID</h6>

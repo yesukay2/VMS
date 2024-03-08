@@ -5,7 +5,7 @@ export default function RegisterVehicle() {
     <div className="body-wrapper">
       <div className="container d-flex flex-column align-items-center justify-content-center">
         <h4 className="page-title">Register Vehicle</h4>
-        <p className="mb-5 page-guide">Add a new vehicle to Samara Database</p>
+        <p className="mb-4 page-guide">Add a new vehicle to Samara Database</p>
         <form action="">
           <div className="d-flex flex-row justify-content-between align-items-center mb-4">
             <div className="registerInputCluster">
