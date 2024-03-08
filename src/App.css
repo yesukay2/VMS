@@ -93,6 +93,15 @@ body {
 }
 
 
+/* error page */
+.error-content {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 
 
 
@@ -164,8 +173,18 @@ body {
     color: var(--white);
 }
 
+.submit-btn-orange:hover {
+    background: var(--green);
+    color: var(--white);
+}
+
 .submit-btn-green {
     background: var(--green);
+    color: var(--white);
+}
+
+.submit-btn-green:hover {
+    background: var(--orange);
     color: var(--white);
 }
 
@@ -173,4 +192,57 @@ body {
 
 .registerInputCluster {
     margin-right: 1rem;
+}
+
+
+/* Exeat */
+.profile-picture {
+    width: 10vh;
+    height: 10vh;
+    border-radius: 100%;
+    object-fit: fill;
+    margin-right: 1rem;
+
+}
+
+.exeat {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.time-title {
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+
+/* Vehicles Page */
+.vehicle-status-menu {
+    margin-right: 2rem;
+    background: var(--grey);
+    color: var(--black);
+    border: 1px solid var(--green);
+    border-radius: 0.3rem;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+.vehicles-table {}
+
+.table-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
 }

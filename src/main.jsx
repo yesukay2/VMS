@@ -9,6 +9,8 @@ import ManagerDashboard from "./Pages/ManagerDashboard";
 import SecurityDashboard from "./Pages/SecurityDashboard";
 import RequestExeat from "./Pages/RequestExeat";
 import RegisterVehicle from "./Pages/RegisterVehicle";
+import ExeatsPage from "./Pages/ExeatsPage";
+import VehiclesPage from "./Pages/VehiclesPage";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +41,14 @@ const router = createBrowserRouter([
       {
         path: "register-vehicle",
         element: <RegisterVehicle />,
+      },
+      {
+        path: "exeat-log",
+        element: <ExeatsPage />,
+      },
+      {
+        path: "vehicles",
+        element: <VehiclesPage />,
       },
     ],
   },

@@ -4,13 +4,7 @@ import "../App.css";
 
 export default function Header() {
   return (
-    <nav
-      className="navbar navbar-expand-lg navbar-light fixed-top"
-      // style={{
-      //   borderBottom: "0.1px solid var(--grey)",
-      // }}
-      id="navbar"
-    >
+    <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="navbar">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
           <img
@@ -25,14 +19,14 @@ export default function Header() {
       </div>
       <div>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
+          <ul className="navbar-nav nav-tabs">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <a className="nav-link" aria-current="page" href="#">
                 Vehicles
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a className="nav-link active" href="/exeat-log">
                 Exeats
               </a>
             </li>
