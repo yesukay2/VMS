@@ -232,17 +232,35 @@ body {
 
 .vehicles-table {}
 
-.table-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+
+.table-content {}
+
+.vehicle-status-available {
+    background: var(--green);
+    width: 500px;
+    color: var(--white);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+    font-size: 0.75rem;
     align-items: center;
+
 }
 
-.table-content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.vehicle-status-unavailable {
+    background: var(--orange);
+    width: 500px;
+    color: var(--white);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+    font-size: 0.75rem;
     align-items: center;
-    margin-top: 1rem;
+
+
+}
+
+.vehicle-info {
+    font-size: 0.75rem;
+    color: var(--dark-grey);
+    width: 20%;
+    align-items: center;
 }

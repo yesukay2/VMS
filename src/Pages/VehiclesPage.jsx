@@ -1,5 +1,7 @@
 import React from "react";
 import "../App.css";
+import VehicleInfo from "../Components/VehicleInfo";
+import vehicles from "../vehiclesData";
 
 export default function VehiclesPage() {
   return (
@@ -11,21 +13,27 @@ export default function VehiclesPage() {
         <div className="vehicle-status-menu">Available</div>
       </div>
       <div>
-        <table className="table body-wrapper">
-          <div className="table-header">
-            <tc>Vehicle</tc>
-            <tc>Status</tc>
-            <tc>Driver</tc>
-            <tc>Parking Premise</tc>
+        <div className="table body-wrapper">
+          <div
+            className="d-flex flex-row align-items-center justify-content-between"
+            style={{ width: "100%" }}
+          >
+            <h4 style={{ width: "25%" }}>Vehicle</h4>
+            <h4 style={{ width: "25%" }}>Status</h4>
+            <h4 style={{ width: "25%" }}>Driver</h4>
+            <h4 style={{ width: "25%" }}>Parking Premise</h4>
           </div>
           <hr className="w-100" style={{ color: "var(--orange)" }}></hr>
-          <div className="table-content">
-            <tc>Truck 1</tc>
-            <tc>Truck 2</tc>
-            <tc>Truck 3</tc>
-            <tc>Truck 4</tc>
-          </div>
-        </table>
+          {vehicles.map((vehicle) => (
+            <VehicleInfo
+              key={vehicle.vehicleNumber}
+              vehicleNumber={vehicle.vehicleNumber}
+              status={vehicle.status}
+              driverName={vehicle.driverName}
+              parkingLot={vehicle.parkingLot}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
