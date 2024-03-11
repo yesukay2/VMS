@@ -5,6 +5,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { IoPersonAddOutline } from "react-icons/io5";
 import { GoGoal } from "react-icons/go";
 import { MdOutlinePersonalInjury } from "react-icons/md";
+import { PiSignatureLight } from "react-icons/pi";
 
 export default function RequestExeat() {
   return (
@@ -20,6 +21,7 @@ export default function RequestExeat() {
               type="text"
               placeholder="Vehicle Number"
               className="requestformInput"
+              required
             />
             <p className="mb-0 mt-0 form-text"> Example: GT 1122 24</p>
           </div>
@@ -30,6 +32,7 @@ export default function RequestExeat() {
               className="requestformInput"
               type="text"
               placeholder="Vehicle Reg. Number"
+              required
             />
           </div>
           <div className="mb-4">
@@ -39,6 +42,7 @@ export default function RequestExeat() {
               className="requestformInput"
               type="text"
               placeholder="Staff ID"
+              required
             />
           </div>
           <div className="mb-4">
@@ -48,6 +52,7 @@ export default function RequestExeat() {
               className="requestformInput"
               type="text"
               placeholder="Staff ID"
+              required
             />
           </div>
           <div className="mb-4">
@@ -58,7 +63,31 @@ export default function RequestExeat() {
               placeholder="Specify purpose of trip"
               id="tripPurposeInput"
               className="requestformInput"
+              required
             />
+          </div>
+          <div className="mb-4">
+            <h6>Signatory</h6>
+            <PiSignatureLight className="form-icon" />
+
+            <select
+              className="formInput requestformInput"
+              name="vehicleType"
+              id="vehicleType"
+              defaultValue="select"
+              required
+            >
+              <option value="select" disabled>
+                Select
+              </option>
+              <option value="SUV">General Manager</option>
+              <option value="Sedan">Financial Controller</option>
+              <option value="Van">Human Resource Manager</option>
+              <option value="Bus">Transport Officer</option>
+              <option value="PickUp">Foriegn Operations Manager</option>
+              <option value="PickUp">IT Manager</option>
+              <option value="Truck">Executive Chairman</option>
+            </select>
           </div>
 
           <div className="submit-btn-wrapper mt-5">

@@ -264,3 +264,60 @@ body {
     width: 20%;
     align-items: center;
 }
+
+/* Security Page */
+.timeOut-btn {
+    background: var(--orange);
+    color: var(--white);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+    font-size: 0.75rem;
+    align-items: center;
+}
+
+.timeOut-btn:hover {
+    background: var(--orange);
+    color: var(--dark-grey);
+}
+
+.timeIn-btn {
+    background: var(--green);
+    color: var(--white);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+    font-size: 0.75rem;
+    align-items: center;
+}
+
+.timeIn-btn:hover {
+    background: var(--green);
+    color: var(--yellow);
+}
+
+.timeIn-btn-disabled {
+    background: var(--green);
+    color: var(--white);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+    font-size: 0.75rem;
+    align-items: center;
+    disabled: true;
+    opacity: 0.5;
+}
+
+/* manage Exeat */
+.exeat-info {
+    font-size: 0.75rem;
+    color: var(--dark-grey);
+    align-items: center;
+}
+
+.resolve-btn {
+    background: rgb(219, 100, 0);
+    background: linear-gradient(90deg, rgba(219, 100, 0, 1) 40%, rgba(7, 11, 1, 0.8183648459383753) 60%);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+    font-size: 0.75rem;
+    align-items: center;
+    color: var(--white);
+}

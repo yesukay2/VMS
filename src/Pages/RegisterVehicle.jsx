@@ -10,8 +10,13 @@ export default function RegisterVehicle() {
           <div className="d-flex flex-row justify-content-between align-items-center mb-4">
             <div className="registerInputCluster">
               <h6>Vehicle Type</h6>
-              <select className="formInput" name="vehicleType" id="vehicleType">
-                <option value="select" selected disabled>
+              <select
+                className="formInput"
+                name="vehicleType"
+                id="vehicleType"
+                defaultValue="select"
+              >
+                <option value="select" disabled>
                   Select
                 </option>
                 <option value="SUV">SUV</option>
