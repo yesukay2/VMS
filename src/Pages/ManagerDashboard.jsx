@@ -1,10 +1,9 @@
 // import React from "react";
 import "../App.css";
 import manageExeatData from "../ManageExeatData";
-import Exeat from "../Components/Exeat";
 import ManageExeat from "../Components/ManageExeat.jsx";
 
-export default function ExeatsPage() {
+export default function ManagerDashboard() {
   return (
     <div className="container body-wrapper">
       <h4 className="page-title d-flex justify-content-center align-items-center mt-2">
