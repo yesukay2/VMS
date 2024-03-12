@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import "../App.css";
 
-export default function ApprovedExeat({ name, avatar, time }) {
+export default function ApprovedExeat({ name, avatar, time, id }) {
   const [timeOut, setTimeOut] = useState("");
   const [timeIn, setTimeIn] = useState("");
 
@@ -35,8 +35,15 @@ export default function ApprovedExeat({ name, avatar, time }) {
     }
     return timeIn;
   };
+
+  const resolve = () => {
+    if (timeOut.length > 0 && timeIn.length > 0) {
+      const exeat = document.getElementById(id);
+      exeat.style.display = "none";
+    }
+  };
   return (
-    <div>
+    <div id={id}>
       <div className="d-flex flex-row align-items-center justify-content-between">
         <div className="d-flex flex-row align-items-center exeat">
           <div className="">
@@ -75,7 +82,9 @@ export default function ApprovedExeat({ name, avatar, time }) {
         </div>
         <div className="d-flex flex-column justify-content-between">
           {/* TODO: Add button to resolve request and remove from list */}
-          <button className="btn timeOut-btn">Resolve</button>
+          <button className="btn resolve-btn" onClick={() => resolve()}>
+            Resolve
+          </button>
         </div>
       </div>
       <hr className="w-100" style={{ color: "var(--orange)" }}></hr>

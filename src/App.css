@@ -332,12 +332,13 @@ body {
     padding: 0.2rem 0.5rem;
 }
 
+
 .sideNav:hover {
     cursor: pointer;
     text-decoration: none;
-    background: var(--orange);
+    background: var(--yellow);
     width: 100%;
-    color: var(--white);
+    color: var(--black);
     font-size: 1rem;
     padding: 0.2rem 0.5rem;
     border-radius: 0.3rem;
@@ -345,7 +346,8 @@ body {
     text-align: center;
 }
 
-.sideNav-active {
+.sideNav-active,
+.sideNav-active:hover {
     background: var(--orange);
     color: var(--white);
     border-radius: 0.3rem;

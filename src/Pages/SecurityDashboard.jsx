@@ -1,6 +1,5 @@
 import "../App.css";
 import approvedExeat from "../approvedReqData";
-import Exeat from "../Components/Exeat";
 import ApprovedExeat from "../Components/ApprovedExeat.jsx";
 
 export default function ExeatsPage() {
@@ -19,6 +18,7 @@ export default function ExeatsPage() {
               name={exeat.name}
               avatar={exeat.avatar}
               time={exeat.time}
+              id={exeat.id}
             />
           );
         })}
