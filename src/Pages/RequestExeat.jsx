@@ -1,4 +1,3 @@
-// import React from "react";
 import "../App.css";
 import { PiCarLight } from "react-icons/pi";
 import { CiLocationOn } from "react-icons/ci";
@@ -11,21 +10,23 @@ export default function RequestExeat() {
   return (
     <div className="body-wrapper">
       <div className="container d-flex flex-column align-items-center justify-content-cennter">
-        <h4 className="mb-5 page-title">New Exeat Request</h4>
+        <h4 className="mb-1 page-title">New Exeat Request</h4>
         <form className="form-wrapper">
-          <div className="mb-4">
+          <div className="mb-4 ">
             <h6>Vehicle Details</h6>
-
-            <PiCarLight className="form-icon " />
-            <input
-              type="text"
-              placeholder="Vehicle Number"
-              className="requestformInput"
-              required
-            />
+            <div className="mb-4 d-flex flex-row align-items-center">
+              <PiCarLight className="form-icon" />
+              <input
+                type="text"
+                placeholder="Vehicle Number"
+                className="requestformInput mb-0"
+                required
+              />
+            </div>
             <p className="mb-0 mt-0 form-text"> Example: GT 1122 24</p>
           </div>
-          <div className="mb-4">
+
+          <div className="mb-4 ">
             <h6>Destination</h6>
             <CiLocationOn className="form-icon" />
             <input
@@ -45,7 +46,7 @@ export default function RequestExeat() {
               required
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 ">
             <h6>Accompanying Staff ID</h6>
             <IoPersonAddOutline className="form-icon" />
             <input
@@ -55,7 +56,7 @@ export default function RequestExeat() {
               required
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 ">
             <h6>Purpose of trip</h6>
             <GoGoal className="form-icon" />
             <input
@@ -66,10 +67,9 @@ export default function RequestExeat() {
               required
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 ">
             <h6>Signatory</h6>
             <PiSignatureLight className="form-icon" />
-
             <select
               className="formInput requestformInput"
               name="vehicleType"

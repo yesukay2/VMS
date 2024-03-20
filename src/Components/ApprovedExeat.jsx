@@ -54,13 +54,13 @@ export default function ApprovedExeat({ name, avatar, time, id }) {
             />
           </div>
           <div>
-            <h5>{name}</h5>
-            <p className="mb-0">{time}</p>
+            <h5 className="exeat-name">{name}</h5>
+            <p className="mb-0 approved-time">{time}</p>
           </div>
         </div>
         <div className="d-flex flex-column justify-content-between">
           <div className="d-flex flex-row align-items-start gap-2">
-            <p className="w-7">Time Out:</p>
+            <p className="record-time-label">Time Out:</p>
             <button
               className="btn timeOut-btn mb-3"
               onClick={() => recordTimeOut()}
@@ -70,7 +70,7 @@ export default function ApprovedExeat({ name, avatar, time, id }) {
             </button>
           </div>
           <div className="d-flex flex-row align-items-start gap-2">
-            <p>Time In:</p>
+            <p className="record-time-label"> Time In:</p>
             <button
               className="btn timeIn-btn"
               onClick={() => recordTimeIn()}
@@ -80,7 +80,7 @@ export default function ApprovedExeat({ name, avatar, time, id }) {
             </button>
           </div>
         </div>
-        <div className="d-flex flex-column justify-content-between">
+        <div className="justify-content-between">
           {/* TODO: Add button to resolve request and remove from list */}
           <button className="btn resolve-btn" onClick={() => resolve()}>
             Resolve

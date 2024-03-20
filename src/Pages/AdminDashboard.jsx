@@ -5,14 +5,15 @@ import SecurityDashboard from "./SecurityDashboard";
 import RequestExeat from "./RequestExeat";
 import ManagerDashboard from "./ManagerDashboard";
 import AdminVehiclesPage from "./AdminVehiclesPage";
+import RegisterUser from "./RegisterUser";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("vehicles");
 
   const renderActiveTab = () => {
     console.log(activeTab);
-    if (activeTab === "registerVehicle") {
-      return <RegisterVehicle />;
+    if (activeTab === "registerUser") {
+      return <RegisterUser />;
     } else if (activeTab === "manageExeat") {
       return <ManagerDashboard />;
     } else if (activeTab === "requestExeat") {
@@ -32,17 +33,16 @@ export default function AdminDashboard() {
         <div
           className="col-4"
           style={{
-            height: "100vh",
+            minHeight: "100%",
             width: "250px",
-            overflow: "scroll",
+            // overflow: "scroll",
             background: "var(--grey)",
-            zIndex: "99",
             position: "fixed",
             padding: "1.5rem",
             borderRight: "1px solid var(--deep-orange)",
           }}
         >
-          <div className="d-flex flex-column align-items-center justify-content-center">
+          <div className="d-flex flex-column align-items-center justify-content-center mt-5">
             <GrUserAdmin
               color="var(--green)"
               className="mb-3"
@@ -55,12 +55,12 @@ export default function AdminDashboard() {
                 alignContent: "center",
               }}
             />
-            <h6 className="d-inline-block align-text-center mb-5">
+            <h6 className="d-inline-block align-text-center mb-2">
               <span style={{ color: "var(--orange)" }}>Admin</span>
             </h6>
           </div>
 
-          <div className="d-flex flex-column align-items-center justify-content-center gap-3">
+          <div className="admin-dash-nav d-flex flex-column align-items-center justify-content-center gap-3">
             <hr
               className="w-100"
               style={{
@@ -147,6 +147,27 @@ export default function AdminDashboard() {
             </a>
             <hr
               className="w-100"
+              style={{
+                color: "var(--orange)",
+                marginTop: "0",
+                marginBottom: "0",
+              }}
+            ></hr>
+            <a
+              href="#"
+              onClick={() => {
+                setActiveTab("registerUser");
+                renderActiveTab();
+              }}
+              className={`sideNav ${
+                activeTab == "registerUser" ? "sideNav-active" : ""
+              }`}
+              id="approvedExeat"
+            >
+              Add User
+            </a>
+            <hr
+              className="w-100 mb-5"
               style={{
                 color: "var(--orange)",
                 marginTop: "0",

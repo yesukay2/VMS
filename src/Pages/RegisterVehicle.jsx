@@ -7,9 +7,9 @@ export default function RegisterVehicle() {
         <h4 className="page-title">Register Vehicle</h4>
         <p className="mb-4 page-guide">Add a new vehicle to Samara Database</p>
         <form action="">
-          <div className="d-flex flex-row justify-content-between align-items-center mb-4">
+          <div className="d-flex mb-4 register-vehicle">
             <div className="registerInputCluster">
-              <h6>Vehicle Type</h6>
+              <h6 className="form-label">Vehicle Type</h6>
               <select
                 className="formInput"
                 name="vehicleType"
@@ -28,7 +28,7 @@ export default function RegisterVehicle() {
               </select>
             </div>
             <div>
-              <h6>Make</h6>
+              <h6 className="form-label">Make</h6>
               <input
                 className="formInput"
                 type="text"
@@ -36,9 +36,9 @@ export default function RegisterVehicle() {
               />
             </div>
           </div>
-          <div className="d-flex flex-row mb-4">
+          <div className="d-flex  mb-4 register-vehicle">
             <div className="registerInputCluster">
-              <h6>Model</h6>
+              <h6 className="form-label">Model</h6>
               <input
                 className="formInput"
                 type="text"
@@ -46,7 +46,7 @@ export default function RegisterVehicle() {
               />
             </div>
             <div>
-              <h6>Vehicle Year</h6>
+              <h6 className="form-label">Vehicle Year</h6>
               <input
                 className="formInput"
                 type="text"
@@ -55,9 +55,9 @@ export default function RegisterVehicle() {
             </div>
           </div>
 
-          <div className="d-flex flex-row mb-4">
+          <div className="d-flex mb-4 register-vehicle">
             <div className="registerInputCluster">
-              <h6>Registration Number</h6>
+              <h6 className="form-label">Registration Number</h6>
               <input
                 className="formInput"
                 type="text"
@@ -65,7 +65,7 @@ export default function RegisterVehicle() {
               />
             </div>
             <div>
-              <h6>Chassis Number</h6>
+              <h6 className="form-label">Chassis Number</h6>
               <input
                 className="formInput"
                 type="text"
@@ -75,7 +75,7 @@ export default function RegisterVehicle() {
           </div>
           <div className="d-flex justify-content-center mb-4">
             <div>
-              <h6>Vehicle Color</h6>
+              <h6 className="form-label">Vehicle Color</h6>
               <input
                 className="formInput "
                 type="text"

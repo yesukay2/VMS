@@ -9,7 +9,7 @@ export default function ManagerDashboard() {
       <h4 className="page-title d-flex justify-content-center align-items-center mt-2">
         Manager Dashboard
       </h4>
-      <h5 className="time-title">Today</h5>
+      <h5 className="time-title mt-5">Today</h5>
       <ul className="list-group list-unstyled" id="exeat-list">
         {manageExeatData.length === 0 && "No Exeats Logged!"}
         {manageExeatData.map((exeat) => {

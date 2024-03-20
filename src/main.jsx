@@ -11,6 +11,7 @@ import RequestExeat from "./Pages/RequestExeat";
 import RegisterVehicle from "./Pages/RegisterVehicle";
 import ExeatsPage from "./Pages/ExeatsPage";
 import VehiclesPage from "./Pages/VehiclesPage";
+import RegisterUser from "./Pages/RegisterUser";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "vehicles",
         element: <VehiclesPage />,
+      },
+      {
+        path: "register-user",
+        element: <RegisterUser />,
       },
     ],
   },

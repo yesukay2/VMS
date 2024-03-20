@@ -47,7 +47,7 @@ export default function ManageExeat({
   };
   return (
     <li id={id}>
-      <div className="d-flex flex-row align-items-center justify-content-between">
+      <div className="d-flex flex-row align-items-center justify-content-between manager-dash">
         <div className="d-flex flex-row align-items-center exeat">
           <div className="">
             <img
@@ -142,10 +142,19 @@ export default function ManageExeat({
           >
             {rejectedTime === "" ? "Reject" : rejectedTime}
           </button>
+          <button
+            className="btn mt-5 resolve-btn resolve-btn-2"
+            onClick={() => resolve()}
+          >
+            Resolve
+          </button>
         </div>
         <div className="d-flex flex-column justify-content-between">
           {/* TODO: Add button to resolve request and remove from list */}
-          <button className="btn resolve-btn" onClick={() => resolve()}>
+          <button
+            className="btn resolve-btn resolve-btn-1"
+            onClick={() => resolve()}
+          >
             Resolve
           </button>
         </div>

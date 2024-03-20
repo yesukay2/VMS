@@ -25,13 +25,18 @@ body {
     font-size: 1rem;
     line-height: 1.6;
     color: var(--black);
+    min-height: 100%;
     margin-top: 60px;
+    margin-bottom: 100px;
+
 }
 
 .body-wrapper {
     display: block;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     margin-bottom: 5rem;
+
 }
 
 .container {
@@ -42,28 +47,13 @@ body {
 
 }
 
-.department-badge {
-    color: var(--black);
-    border: var(--deep-orange);
-    background: var(--white);
-    border: 1px solid var(--green);
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    padding: 10px 10px;
-    margin-left: 2rem;
-    margin-right: 1rem;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    text-transform: uppercase;
 
-}
 
 .page-title {
     text-decoration: underline;
     font-weight: bold;
+    margin-top: 4rem;
+    color: var(--black);
 }
 
 .page-guide {
@@ -72,8 +62,9 @@ body {
 
 /* navbar */
 
+
 #navbar {
-    height: 60px;
+    height: 4rem;
     border-bottom: 0.1px solid var(--grey);
     z-index: 999;
     background: var(--white);
@@ -92,6 +83,42 @@ body {
     display: block;
 }
 
+.nav_toggle_btn {
+    display: none;
+}
+
+.department-badge {
+    color: var(--black);
+    background: var(--white);
+    border: 1px solid var(--green);
+    border-radius: 0.5rem;
+    font-size: 0.7rem;
+    padding: 10px 10px;
+    margin-right: 1rem;
+    height: 2.3rem;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/* .department-badge {
+    color: var(--black);
+    background: var(--white);
+    border: 1px solid var(--green);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    padding: 10px 10px;
+    margin-left: 2rem;
+    margin-right: 1rem;
+    height: 35px;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-transform: uppercase;
+} */
 
 /* error page */
 .error-content {
@@ -109,12 +136,15 @@ body {
 
 /* footer */
 
-#footer {
-    color: var(--black);
+.footer {
+    z-index: 999999;
+    background: var(--white);
     border-top: 0.1px solid var(--grey);
-    background: var(--grey);
-    height: 80px;
-    display: block;
+    padding: 1rem;
+
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 
 
@@ -191,7 +221,15 @@ body {
 /* Register */
 
 .registerInputCluster {
-    margin-right: 1rem;
+    /* margin-right: 1rem; */
+}
+
+.register-vehicle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 
@@ -214,7 +252,7 @@ body {
 
 .time-title {
     font-weight: bold;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     margin-top: 2.5rem;
 }
 
@@ -228,12 +266,10 @@ body {
     border-radius: 0.3rem;
     padding: 0.1rem 0.5rem;
     font-size: 0.8rem;
+    align-items: center;
+    justify-content: center;
 }
 
-.vehicles-table {}
-
-
-.table-content {}
 
 .vehicle-status-available {
     background: var(--green);
@@ -324,6 +360,16 @@ body {
 
 
 /* admin page */
+.admin-dash-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 0.3rem;
+}
+
 .sideNav {
     cursor: pointer;
     text-decoration: none;
@@ -376,4 +422,94 @@ body {
     font-size: 0.75rem;
     align-items: center;
 
+}
+
+
+
+/* media queries */
+@media screen and (max-width: 800px) {
+    .register-vehicle {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow-y: scroll;
+        margin-left: 0%;
+        margin-bottom: 1rem;
+    }
+
+    .form-label {
+        margin-top: 2rem;
+    }
+
+    #logo {
+        display: none;
+    }
+
+
+    .formInput {
+        width: 15rem;
+    }
+
+    .resolve-btn-1 {
+        display: none;
+    }
+
+    .profile-picture {
+        display: none;
+    }
+
+    .requestInputCluster {
+        margin-left: 2rem;
+
+    }
+
+    #tripPurposeInput {
+        width: 10rem;
+    }
+
+    #vehicleType {
+        width: 10rem;
+    }
+
+    .record-time-label {
+        display: none;
+    }
+
+    .timeOut-btn,
+    .timeIn-btn {
+        width: 5rem;
+        margin-right: 1.5rem;
+    }
+
+    .approved-time {
+        width: 5rem;
+    }
+
+    .exeat-name {
+        width: 5rem;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-right: 1rem;
+    }
+
+    .admin-dash-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+}
+
+
+@media screen and (min-width: 800px) {
+    .formInput {
+        margin-right: 1rem;
+
+    }
+
+    .resolve-btn-2 {
+        display: none;
+    }
 }
