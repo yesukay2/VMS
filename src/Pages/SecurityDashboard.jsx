@@ -5,7 +5,7 @@ import ApprovedExeat from "../Components/ApprovedExeat.jsx";
 export default function ExeatsPage() {
   return (
     <div className="container body-wrapper">
-      <h4 className="page-title d-flex justify-content-center align-items-center mt-2">
+      <h4 className="page-title d-flex justify-content-center align-items-center mt-5">
         Approved Exeats Log
       </h4>
       <h5 className="time-title">Today</h5>

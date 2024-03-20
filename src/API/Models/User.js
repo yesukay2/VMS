@@ -1,8 +1,14 @@
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import { Schema, model } from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   role: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  name: {
     type: String,
     required: true,
   },
@@ -38,5 +44,4 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-const User = mongoose.model("User", userSchema);
-export default User;
+export default model("User", userSchema);

@@ -24,6 +24,8 @@ export default function AdminDashboard() {
       return <SecurityDashboard />;
     } else if (activeTab === "vehicles") {
       return <AdminVehiclesPage />;
+    } else if (activeTab === "registerVehicle") {
+      return <RegisterVehicle />;
     }
   };
 
