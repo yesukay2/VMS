@@ -1,2 +1,2 @@
-1. Registration data not showing in database
-2. 
+1. Registration not working
+2. Registration data not showing in database
