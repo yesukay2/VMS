@@ -1,13 +1,19 @@
 import "../App.css";
-import logo from "/src/assets/logo.png";
+import logo from "/src/assets/carLogo.png";
+import { useState } from "react";
 
 export default function LoginPage() {
-  return (
-    <div className="d-flex justify-content-center align-items-center flex-column ">
-      <img className="mt-5" src={logo} id="logo" alt="Company Logo" />
-      <h5 className="mb-4 d-inline-flex">Vehicle Management System ( VMS )</h5>
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-      <h5 className="mb-3 page-title" style={{ textDecoration: "underline" }}>
+  return (
+    <div
+      className="d-flex justify-content-center align-items-center flex-column"
+      id="loginPage"
+    >
+      <img src={logo} id="logo" alt="Company Logo" />
+      <h5 className="mb-4">Vehicle Management System ( VMS )</h5>
+      <h5 className="mb-3" style={{ textDecoration: "underline" }}>
         Sign In
       </h5>
 
@@ -16,27 +22,25 @@ export default function LoginPage() {
           type="email"
           className="form-control mb-4 formInput"
           placeholder="Email"
-          // style={{ width: "400px" }}
-          // value={}
-          // onChange={(e) => setItem(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           className="form-control mb-4 formInput"
           placeholder="Password"
-          // style={{ width: "400px" }}
-          // value={}
-          // onChange={(e) => setItem(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        <button
-          // onClick={addItem}
-          className="btn mb-4 align-text-center submit-btn-green"
-          style={{ fontSize: "0.8rem" }}
-          type="submit"
-        >
-          Sign In
-        </button>
       </form>
+      <button
+        // onClick={addItem}
+        className="btn align-text-center submit-btn-green"
+        style={{ fontSize: "0.8rem" }}
+        type="submit"
+      >
+        Sign In
+      </button>
     </div>
   );
 }

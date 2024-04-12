@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 
 export default function Header() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light mt-0 fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light mt-0  fixed-top">
       <div className="container-fluid">
         <a href="#" className="navbar-brand">
           <img src={logo} height="100" alt="CoolBrand" />

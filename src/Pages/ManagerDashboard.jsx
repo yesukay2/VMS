@@ -9,7 +9,7 @@ export default function ManagerDashboard() {
       <h4 className="page-title d-flex justify-content-center align-items-center mt-5">
         Manager Dashboard
       </h4>
-      <h5 className="time-title mt-5">Today</h5>
+      <h5 className="time-title mt-5">Logged Exeats</h5>
       <ul className="list-group list-unstyled" id="exeat-list">
         {manageExeatData.length === 0 && "No Exeats Logged!"}
         {manageExeatData.map((exeat) => {
@@ -27,7 +27,7 @@ export default function ManagerDashboard() {
           );
         })}
       </ul>
-      <h5 className="time-title">Yesterday</h5>
+      {/* <h5 className="time-title">Yesterday</h5>
       <ul className="list-group list-unstyled" id="exeat-list">
         {manageExeatData.length === 0 && "No Exeats Logged!"}
         {manageExeatData.map((exeat) => {
@@ -44,7 +44,7 @@ export default function ManagerDashboard() {
             />
           );
         })}
-      </ul>
+      </ul> */}
     </div>
   );
 }

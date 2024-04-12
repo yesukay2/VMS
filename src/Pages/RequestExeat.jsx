@@ -80,13 +80,17 @@ export default function RequestExeat() {
               <option value="select" disabled>
                 Select
               </option>
-              <option value="SUV">General Manager</option>
-              <option value="Sedan">Financial Controller</option>
-              <option value="Van">Human Resource Manager</option>
-              <option value="Bus">Transport Officer</option>
-              <option value="PickUp">Foriegn Operations Manager</option>
-              <option value="PickUp">IT Manager</option>
-              <option value="Truck">Executive Chairman</option>
+              <option value="General Manager">General Manager</option>
+              <option value="Financial Controller">Financial Controller</option>
+              <option value="Human Resource Manager">
+                Human Resource Manager
+              </option>
+              <option value="Transport Officer">Transport Officer</option>
+              <option value="Foriegn Operations Manager">
+                Foriegn Operations Manager
+              </option>
+              <option value="IT Manager">IT Manager</option>
+              <option value="Executive Chairman">Executive Chairman</option>
             </select>
           </div>
 

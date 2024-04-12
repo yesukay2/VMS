@@ -75,12 +75,13 @@ body {
 }
 
 #logo {
-    width: 100px;
-    height: 100px;
+    width: 7rem;
+    height: 7rem;
     border-radius: 100%;
     object-fit: fill;
     margin: 0 auto;
     display: block;
+    margin-top: 4rem;
 }
 
 .nav_toggle_btn {
@@ -150,6 +151,10 @@ body {
 
 
 /* form */
+#loginPage {
+    height: 100%;
+    overflow-y: hidden;
+}
 
 .form-wrapper {
     background: var(--grey);
