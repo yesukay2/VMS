@@ -1,22 +1,30 @@
 import EmployeeModel from "../Models/Employee.js";
 import VehicleModel from "../Models/Vehicle.js";
+import process from "process";
+import bcrypt from "bcrypt";
 
 const registerEmployee = async (req, res) => {
-  const { Id_No, email, name, password, date, role } = req.body;
+  const { Id_No, email, name, password, role } = req.body;
+  const salt = bcrypt.genSaltSync(parseInt(process.env.SALT_ROUNDS));
+  const hashedPassword = await bcrypt.hash(password, salt);
 
   try {
-    const newEmployee = await EmployeeModel.create({
-      Id_No: Id_No,
-      email: email,
-      name: name,
-      password: password,
-      date: date,
-      role: role,
-    });
-    await newEmployee.save();
-    res.json({ message: "New Employee Created!", newEmployee });
+    const user = await EmployeeModel.findOne({ email: email });
+    user == null
+      ? await EmployeeModel.create({
+          Id_No: Id_No,
+          email: email,
+          name: name,
+          password: hashedPassword,
+          date: Date.now(),
+          role: role,
+        }).then(() =>
+          res.status(201).json({ message: "New Employee Created!" })
+        )
+      : res.status(409).json({ message: "Employee Already Exists!" });
   } catch (error) {
-    res.json(error.message);
+    console.log(error);
+    res.json(error);
   }
 };
 
@@ -36,12 +44,12 @@ const registerVehicle = async (req, res) => {
     });
 
     await newVehicle.save();
-    res.json({
+    res.status(201).json({
       message: "New Vehicle Created!",
       newVehicle,
     });
   } catch (error) {
-    res.json(error.message);
+    res.status(500).json({ error: "Server Error!" });
   }
 };
 
