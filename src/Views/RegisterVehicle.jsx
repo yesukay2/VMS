@@ -1,5 +1,19 @@
 // import React from "react";
+import "../App.css";
 import { Navigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { RegisterVehicleValidation } from "./RegisterVehicleValidation.jsx";
+import axios from "axios";
+
+const initialValues = {
+  vehicle_type: "",
+  make: "",
+  model: "",
+  make_year: "",
+  reg_no: "",
+  chassis_no: "",
+  color: "",
+};
 
 const requireAuth = () => {
   const token = localStorage.getItem("token");
@@ -10,100 +24,222 @@ const requireAuth = () => {
 };
 
 export default function RegisterVehicle() {
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: RegisterVehicleValidation,
+    onSubmit: (values) => {
+      registerVehicle(values);
+    },
+  });
+
+  const registerVehicle = async (values) => {
+    try {
+      formik.setSubmitting(true);
+      await axios
+        .post("http://localhost:3000/vms/vehicle/register-vehicle", values)
+        .then(() => {
+          const badgeNotification =
+            document.getElementById("badgeNotification");
+          badgeNotification.innerHTML = "Vehicle Added Successfully!";
+          badgeNotification.style.display = "block";
+          setTimeout(() => {
+            badgeNotification.style.display = "none";
+          }, 3000);
+          formik.resetForm();
+        });
+    } catch (error) {
+      console.log(error);
+      const badgeNotification = document.getElementById("badgeNotification");
+      if (error.response.status == 400) {
+        badgeNotification.innerHTML = "Bad Request";
+        badgeNotification.style.display = "block";
+        setTimeout(() => {
+          badgeNotification.style.display = "none";
+        }, 3000);
+        formik.setSubmitting(false);
+      } else if (error.response.status == 409) {
+        badgeNotification.innerHTML = "Vehicle already exists";
+        badgeNotification.style.display = "block";
+        setTimeout(() => {
+          badgeNotification.style.display = "none";
+        }, 3000);
+        formik.setSubmitting(false);
+      } else if (error.response.status == 500) {
+        badgeNotification.innerHTML = "Server Error";
+        badgeNotification.style.display = "block";
+        setTimeout(() => {
+          badgeNotification.style.display = "none";
+        }, 3000);
+        formik.setSubmitting(false);
+      } else if (error.response.status == 503) {
+        badgeNotification.innerHTML = "Service Unavailable";
+        badgeNotification.style.display = "block";
+        setTimeout(() => {
+          badgeNotification.style.display = "none";
+        }, 3000);
+        formik.setSubmitting(false);
+      } else {
+        badgeNotification.innerHTML = "Something went wrong";
+        badgeNotification.style.display = "block";
+        setTimeout(() => {
+          badgeNotification.style.display = "none";
+        }, 3000);
+        formik.setSubmitting(false);
+      }
+    } finally {
+      formik.setSubmitting(false);
+    }
+    formik.resetForm();
+  };
   return (
     <>
       {requireAuth() ? (
-        <div className="body-wrapper">
-          <div className="container d-flex flex-column align-items-center justify-content-center">
-            <h4 className="page-title">Register Vehicle</h4>
-            <p className="mb-4 page-guide">
-              Add a new vehicle to Samara Database
-            </p>
-            <form action="">
-              <div className="d-flex mb-4 register-vehicle">
-                <div className="registerInputCluster">
-                  <h6 className="form-label">Vehicle Type</h6>
-                  <select
-                    className="formInput"
-                    name="vehicleType"
-                    id="vehicleType"
-                    defaultValue="select"
-                  >
-                    <option value="select" disabled>
-                      Select
-                    </option>
-                    <option value="SUV">SUV</option>
-                    <option value="Sedan">Sedan</option>
-                    <option value="Van">Van</option>
-                    <option value="Bus">Bus</option>
-                    <option value="Truck">Truck</option>
-                    <option value="PickUp">Pick-Up</option>
-                  </select>
+        <>
+          <div className="error-notification" id="badgeNotification"></div>
+          <div className="body-wrapper">
+            <div className="container d-flex flex-column align-items-center justify-content-center">
+              <h4 className="page-title">Register Vehicle</h4>
+              <p className="mb-4 page-guide">
+                Add a new vehicle to Samara Database
+              </p>
+              <form onSubmit={formik.handleSubmit}>
+                <div className="d-flex mb-4 register-vehicle">
+                  <div className="registerInputCluster">
+                    <h6 className="form-label">Vehicle Type</h6>
+                    <select
+                      className="formInput form-control"
+                      name="vehicle_type"
+                      id="vehicleType"
+                      // defaultValue="select"
+                      {...formik.getFieldProps("vehicle_type")}
+                    >
+                      <option value="">Select</option>
+                      <option value="SUV">SUV</option>
+                      <option value="Sedan">Sedan</option>
+                      <option value="Van">Van</option>
+                      <option value="Bus">Bus</option>
+                      <option value="Truck">Truck</option>
+                      <option value="PickUp">Pick-Up</option>
+                    </select>
+                    {formik.touched.vehicle_type &&
+                    formik.errors.vehicle_type ? (
+                      <small className="error-message">
+                        {formik.errors.vehicle_type}
+                      </small>
+                    ) : null}
+                  </div>
+                  <div>
+                    <h6 className="form-label">Make</h6>
+                    <input
+                      className="formInput form-control"
+                      name="make"
+                      type="text"
+                      placeholder="Toyota, Mercedes, etc"
+                      {...formik.getFieldProps("make")}
+                    />
+                    {formik.touched.make && formik.errors.make ? (
+                      <small className="error-message">
+                        {formik.errors.make}
+                      </small>
+                    ) : null}
+                  </div>
                 </div>
-                <div>
-                  <h6 className="form-label">Make</h6>
-                  <input
-                    className="formInput"
-                    type="text"
-                    placeholder="Toyota, Mercedes, etc"
-                  />
+                <div className="d-flex  mb-4 register-vehicle">
+                  <div className="registerInputCluster">
+                    <h6 className="form-label">Model</h6>
+                    <input
+                      className="formInput form-control"
+                      name="model"
+                      type="text"
+                      placeholder="Hilux, Sprinter, Land Cruiser,  etc"
+                      {...formik.getFieldProps("model")}
+                    />
+                    {formik.touched.model && formik.errors.model ? (
+                      <small className="error-message">
+                        {formik.errors.model}
+                      </small>
+                    ) : null}
+                  </div>
+                  <div>
+                    <h6 className="form-label">Vehicle Year</h6>
+                    <input
+                      className="formInput form-control"
+                      name="make_year"
+                      type="text"
+                      placeholder="Year of  Manufacture"
+                      {...formik.getFieldProps("make_year")}
+                    />
+                    {formik.touched.make_year && formik.errors.make_year ? (
+                      <small className="error-message">
+                        {formik.errors.make_year}
+                      </small>
+                    ) : null}
+                  </div>
                 </div>
-              </div>
-              <div className="d-flex  mb-4 register-vehicle">
-                <div className="registerInputCluster">
-                  <h6 className="form-label">Model</h6>
-                  <input
-                    className="formInput"
-                    type="text"
-                    placeholder="Hilux, Sprinter, Land Cruiser,  etc"
-                  />
-                </div>
-                <div>
-                  <h6 className="form-label">Vehicle Year</h6>
-                  <input
-                    className="formInput"
-                    type="text"
-                    placeholder="Year of  Manufacture"
-                  />
-                </div>
-              </div>
 
-              <div className="d-flex mb-4 register-vehicle">
-                <div className="registerInputCluster">
-                  <h6 className="form-label">Registration Number</h6>
-                  <input
-                    className="formInput"
-                    type="text"
-                    placeholder="License plate number"
-                  />
+                <div className="d-flex mb-4 register-vehicle">
+                  <div className="registerInputCluster">
+                    <h6 className="form-label">Registration Number</h6>
+                    <input
+                      className="formInput form-control"
+                      name="reg_no"
+                      type="text"
+                      placeholder="License plate number"
+                      {...formik.getFieldProps("reg_no")}
+                    />
+                    {formik.touched.reg_no && formik.errors.reg_no ? (
+                      <small className="error-message">
+                        {formik.errors.reg_no}
+                      </small>
+                    ) : null}
+                  </div>
+                  <div>
+                    <h6 className="form-label">Chassis Number</h6>
+                    <input
+                      className="formInput form-control"
+                      name="chassis_no"
+                      type="text"
+                      placeholder="Chassis Number"
+                      {...formik.getFieldProps("chassis_no")}
+                    />
+                    {formik.touched.chassis_no && formik.errors.chassis_no ? (
+                      <small className="error-message">
+                        {formik.errors.chassis_no}
+                      </small>
+                    ) : null}
+                  </div>
                 </div>
-                <div>
-                  <h6 className="form-label">Chassis Number</h6>
-                  <input
-                    className="formInput"
-                    type="text"
-                    placeholder="Chassis Number"
-                  />
+                <div className="d-flex justify-content-center mb-4">
+                  <div>
+                    <h6 className="form-label">Vehicle Color</h6>
+                    <input
+                      className="formInput form-control "
+                      name="color"
+                      type="text"
+                      placeholder="Vehicle Color"
+                      {...formik.getFieldProps("color")}
+                    />
+                    {formik.touched.color && formik.errors.color ? (
+                      <small className="error-message">
+                        {formik.errors.color}
+                      </small>
+                    ) : null}
+                  </div>
                 </div>
-              </div>
-              <div className="d-flex justify-content-center mb-4">
-                <div>
-                  <h6 className="form-label">Vehicle Color</h6>
-                  <input
-                    className="formInput "
-                    type="text"
-                    placeholder="Vehicle Color"
-                  />
+                <div className="d-flex justify-content-center mb-4">
+                  <button
+                    type="submit"
+                    className="btn align-text-center submit-btn-green"
+                    style={{ fontSize: "0.8rem" }}
+                    disabled={formik.isSubmitting}
+                  >
+                    Register
+                  </button>
                 </div>
-              </div>
-              <div className="d-flex justify-content-center mb-4">
-                <button type="submit" className="btn submit-btn-green">
-                  Register
-                </button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
+        </>
       ) : (
         <Navigate to={"/"} />
       )}

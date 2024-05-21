@@ -52,7 +52,7 @@ body {
 .page-title {
     text-decoration: underline;
     font-weight: bold;
-    margin-top: 4rem;
+    margin-top: 3rem;
     color: var(--black);
 }
 
@@ -273,12 +273,7 @@ body {
 
 }
 
-.exeat {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    margin-bottom: 1rem;
-}
+
 
 .time-title {
     font-weight: bold;
@@ -457,11 +452,28 @@ body {
 /* Employee Details */
 
 .user-info {
-    width: 20rem;
-    margin-top: 9rem;
+    width: 15rem;
     margin-left: 1rem;
+    margin-bottom: 1rem;
 }
 
+.users {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 0%;
+}
+
+/* Exeat Logged */
+
+.exeat-icon {
+    font-size: 1.3rem;
+    color: var(--green);
+    border-radius: 20%;
+    margin-right: 0.5rem;
+    width: 20px;
+    height: 20px;
+}
 
 
 /* media queries */

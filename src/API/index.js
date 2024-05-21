@@ -7,6 +7,8 @@ import regEmployeeRoute from "./Routes/regEmployeeroute.js";
 import regVehicleRoute from "./Routes/regVehicleRoute.js";
 import securityRoute from "./Routes/securityRoute.js";
 import loginRoute from "./Routes/loginRoute.js";
+import employeeRoute from "./Routes/employeeRoute.js";
+import exeatRoute from "./Routes/exeatsRoute.js";
 import process from "process";
 import dotenv from "dotenv";
 import { ServerApiVersion } from "mongodb";
@@ -36,6 +38,8 @@ app.use(
 app.use(cookieParser());
 app.use("/vms", loginRoute);
 app.use("/vms", requestRoute);
+app.use("/vms", exeatRoute);
+app.use("/vms", employeeRoute);
 app.use("/vms/manager", managerRoute);
 app.use("/vms/employee", regEmployeeRoute);
 app.use("/vms/vehicle", regVehicleRoute);

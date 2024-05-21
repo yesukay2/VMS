@@ -4,17 +4,20 @@ import Proptypes from "prop-types";
 
 const UserInfo = ({ fullName, idNumber, email, role }) => {
   return (
-    <div className="card p-3 text-center user-info">
-      <h1>{fullName}</h1>
-      <hr className="mt-0" />
-      <div>
-        <strong>ID Number:</strong> {idNumber}
+    <div className="card p-2 text-center user-info">
+      <h5>{fullName}</h5>
+      <hr className="mt-0" style={{ color: "var(--orange)" }} />
+      <div style={{ textAlign: "left", fontSize: "0.8rem", marginTop: "0%" }}>
+        <strong style={{ color: "var(--orange)", fontSize: "0.8rem" }}>
+          ID Number:
+        </strong>{" "}
+        {idNumber}
       </div>
-      <div>
-        <strong>Email:</strong> {email}
+      <div style={{ textAlign: "left", fontSize: "0.8rem" }}>
+        <strong style={{ color: "var(--green)" }}>Email:</strong> {email}
       </div>
-      <div>
-        <strong>Role:</strong> {role}
+      <div style={{ textAlign: "left", fontSize: "0.8rem" }}>
+        <strong style={{ color: "var(--orange)" }}>Role:</strong> {role}
       </div>
     </div>
   );

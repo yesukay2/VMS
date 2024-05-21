@@ -29,27 +29,26 @@ const registerEmployee = async (req, res) => {
 };
 
 const registerVehicle = async (req, res) => {
+  const { vehicle_type, make, model, make_year, reg_no, chassis_no, color } =
+    req.body;
+
   try {
-    const { vehicle_type, make, model, make_year, reg_no, chassis_no, color } =
-      req.body;
+    const vehicleExists = await VehicleModel.findOne({ reg_no: reg_no });
 
-    const newVehicle = await VehicleModel.create({
-      vehicle_type: vehicle_type,
-      make: make,
-      model: model,
-      make_year: make_year,
-      reg_no: reg_no,
-      chassis_no: chassis_no,
-      color: color,
-    });
-
-    await newVehicle.save();
-    res.status(201).json({
-      message: "New Vehicle Created!",
-      newVehicle,
-    });
+    vehicleExists == null
+      ? await VehicleModel.create({
+          vehicle_type: vehicle_type,
+          make: make,
+          model: model,
+          make_year: make_year,
+          reg_no: reg_no,
+          chassis_no: chassis_no,
+          color: color,
+        }).then(() => res.status(201).json({ message: "New Vehicle Created!" }))
+      : res.status(409).json({ message: "Vehicle Already Exists!" });
   } catch (error) {
-    res.status(500).json({ error: "Server Error!" });
+    console.log(error);
+    res.json(error);
   }
 };
 

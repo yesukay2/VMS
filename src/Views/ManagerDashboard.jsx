@@ -39,24 +39,6 @@ export default function ManagerDashboard() {
                 );
               })}
             </ul>
-            {/* <h5 className="time-title">Yesterday</h5>
-      <ul className="list-group list-unstyled" id="exeat-list">
-        {manageExeatData.length === 0 && "No Exeats Logged!"}
-        {manageExeatData.map((exeat) => {
-          return (
-            <ManageExeat
-              id={exeat.id}
-              key={exeat.id}
-              name={exeat.name}
-              avatar={exeat.avatar}
-              time={exeat.time}
-              destination={exeat.destination}
-              purpose={exeat.purpose}
-              accomp_staff={exeat.accomp_staff}
-            />
-          );
-        })}
-      </ul> */}
           </div>
         </>
       ) : (

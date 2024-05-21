@@ -30,6 +30,7 @@ const login = async (req, res) => {
       return res.json({
         message: "Login Successful",
         token: token,
+        user: existingUser,
       });
     } else if (existingUser && !passwordMatch) {
       return res.status(401).json({

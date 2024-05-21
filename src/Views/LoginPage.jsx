@@ -1,4 +1,3 @@
-import { Navigate } from "react-router-dom";
 import "../App.css";
 import logo from "/src/assets/carLogo.png";
 import axios from "axios";
@@ -24,9 +23,21 @@ export default function LoginPage() {
           }
         )
         .then((res) => {
-          console.log(res);
           localStorage.setItem("token", res.data.token);
-          navigate("/request-exeat", { replace: true });
+
+          const role = res.data.user.role.toLowerCase();
+
+          if (role == "secretary") {
+            navigate("/request-exeat", { replace: true });
+          } else if (role == "admin") {
+            navigate("/admin-dashboard", { replace: true });
+          } else if (role == "manager") {
+            navigate("/manager-dashboard", { replace: true });
+          } else if (role == "security") {
+            navigate("/security-dashboard", { replace: true });
+          } else {
+            navigate("/", { replace: true });
+          }
         });
     } catch (error) {
       console.log(error);

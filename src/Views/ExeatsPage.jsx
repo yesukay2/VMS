@@ -1,8 +1,10 @@
 // import React from "react";
 import "../App.css";
-import requestData from "../requestData.js";
+import { useState, useEffect } from "react";
 import Exeat from "../Components/Exeat";
 import { Navigate } from "react-router-dom";
+import axios from "axios";
+import { isString } from "formik";
 
 const requireAuth = () => {
   const token = localStorage.getItem("token");
@@ -13,41 +15,52 @@ const requireAuth = () => {
 };
 
 export default function ExeatsPage() {
+  const [requestData, setRequestData] = useState([]);
+  try {
+    useEffect(() => {
+      const getExeats = async () =>
+        await axios.get("http://localhost:3000/vms/exeats").then((res) => {
+          console.log(res.data);
+          return setRequestData(res.data);
+        });
+
+      getExeats();
+    }, []);
+  } catch (error) {
+    console.log(error);
+  }
+
   return (
     <>
       {requireAuth() ? (
         <div className="container body-wrapper">
-          <h4 className="page-title d-flex justify-content-center align-items-center mt-2">
-            Exeat Logs
+          <h4 className="page-title justify-content-center align-items-center text-center mb-4">
+            Exeats Log
           </h4>
-          <h5 className="time-title">Today</h5>
-          <ul className="list-group list-unstyled" id="exeat-list">
-            {requestData.length === 0 && "No Exeats Logged!"}
-            {requestData.map((exeat) => {
+          <div className="users">
+            <div className="error-notification" id="badgeNotification"></div>
+
+            {requestData.length === 0 && (
+              <div className="d-flex w-100 h-100 justify-content-center align-items-center text-center  mt-5">
+                No Exeats Logged!
+              </div>
+            )}
+            {requestData.map((exeat, index) => {
               return (
                 <Exeat
-                  key={exeat.id}
-                  name={exeat.name}
-                  avatar={exeat.avatar}
-                  time={exeat.time}
+                  key={index}
+                  driverId={exeat.driver_id}
+                  vehicleNo={exeat.vehicle_no}
+                  driverName={exeat.driver_name}
+                  accompStaffId={exeat.accomp_staff_id}
+                  accompStaffName={exeat.accomp_staff_name}
+                  destination={exeat.destination}
+                  purpose={exeat.purpose}
+                  timeLogged={exeat.time_logged}
                 />
               );
             })}
-          </ul>
-          <h5 className="time-title">Yesterday</h5>
-          <ul className="list-group list-unstyled" id="exeat-list">
-            {requestData.length === 0 && "No Exeats Logged!"}
-            {requestData.map((exeat) => {
-              return (
-                <Exeat
-                  key={exeat.id}
-                  name={exeat.name}
-                  avatar={exeat.avatar}
-                  time={exeat.time}
-                />
-              );
-            })}
-          </ul>
+          </div>
         </div>
       ) : (
         <Navigate to={"/"} />
