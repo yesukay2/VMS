@@ -4,7 +4,7 @@ import process from "process";
 import bcrypt from "bcrypt";
 
 const registerEmployee = async (req, res) => {
-  const { Id_No, email, name, password, role } = req.body;
+  const { Id_No, email, name, password, role, profilePic } = req.body;
   const salt = bcrypt.genSaltSync(parseInt(process.env.SALT_ROUNDS));
   const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -18,6 +18,7 @@ const registerEmployee = async (req, res) => {
           password: hashedPassword,
           date: Date.now(),
           role: role,
+          profilePic: profilePic,
         }).then(() =>
           res.status(201).json({ message: "New Employee Created!" })
         )

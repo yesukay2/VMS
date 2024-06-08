@@ -1,6 +1,6 @@
 import "../App.css";
-import logo from "/src/assets/carLogo.png";
 import axios from "axios";
+import { useState } from "react";
 import { useFormik } from "formik";
 import { RegisterValidation } from "./RegisterValidation.jsx";
 import { Navigate } from "react-router-dom";
@@ -12,6 +12,7 @@ const initialValues = {
   password: "",
   confirmPassword: "",
   role: "",
+  profilePic: "",
 };
 
 const requireAuth = () => {
@@ -23,10 +24,13 @@ const requireAuth = () => {
 };
 
 export default function RegisterUser() {
+  const [profilePic, setProfilePic] = useState();
+
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: RegisterValidation,
     onSubmit: (values) => {
+      values.profilePic = profilePic;
       registerEmployee(values);
     },
   });
@@ -37,6 +41,8 @@ export default function RegisterUser() {
       await axios
         .post("http://localhost:3000/vms/employee/register-employee", values)
         .then(() => {
+          formik.setSubmitting(false);
+          scrollTo(0, 0);
           const badgeNotification =
             document.getElementById("badgeNotification");
           badgeNotification.innerHTML = "Employee Created Successfully!";
@@ -96,29 +102,22 @@ export default function RegisterUser() {
           <div className="error-notification" id="badgeNotification"></div>
           <div
             className="d-flex justify-content-center align-items-center flex-column"
-            style={{ position: "relative" }}
+            style={{ top: "auto", marginTop: "8rem" }}
           >
-            <img
-              style={{ marginTop: "4rem" }}
-              src={logo}
-              id="logo"
-              alt="Company Logo"
-            />
-            <h5 className="mb-4 d-inline-flex">
-              Vehicle Management System ( VMS )
-            </h5>
             <h5 className="mb-1" style={{ textDecoration: "underline" }}>
-              Add Employee
+              Register Employee
             </h5>
 
-            <form className="mb-3 text-center" onSubmit={formik.handleSubmit}>
+            <form
+              className="mb-3 text-center"
+              onSubmit={formik.handleSubmit}
+              encType="multipart/form-data"
+            >
               <input
                 type="text"
                 name="Id_No"
                 className="form-control formInput"
                 placeholder="ID No."
-                // value={Id_No}
-                // onChange={(e) => setId_No(e.target.value)}
                 {...formik.getFieldProps("Id_No")}
               />
 
@@ -131,8 +130,6 @@ export default function RegisterUser() {
                 name="name"
                 className="form-control  formInput"
                 placeholder="Full Name"
-                // value={name}
-                // onChange={(e) => setName(e.target.value)}
                 {...formik.getFieldProps("name")}
               />
 
@@ -144,8 +141,6 @@ export default function RegisterUser() {
                 name="role"
                 className="form-control  formInput"
                 placeholder="Role"
-                // value={role}
-                // onChange={(e) => setRole(e.target.value)}
                 {...formik.getFieldProps("role")}
               />
               {formik.touched.role && formik.errors.role ? (
@@ -157,20 +152,17 @@ export default function RegisterUser() {
                 name="email"
                 className="form-control  formInput"
                 placeholder="Email"
-                // value={email}
-                // onChange={(e) => setEmail(e.target.value)}
                 {...formik.getFieldProps("email")}
               />
               {formik.touched.email && formik.errors.email ? (
                 <small className="error-message">{formik.errors.email}</small>
               ) : null}
+
               <input
                 type="password"
                 name="password"
                 className="form-control formInput"
                 placeholder="Password"
-                // value={password}
-                // onChange={(e) => setPassword(e.target.value)}
                 {...formik.getFieldProps("password")}
               />
 
@@ -184,14 +176,36 @@ export default function RegisterUser() {
                 name="confirmPassword"
                 className="form-control formInput"
                 placeholder="Confirm Password"
-                // value={confirmPassword}
-                // onChange={(e) => setConfirmPassword(e.target.value)}
                 {...formik.getFieldProps("confirmPassword")}
               />
               {formik.touched.confirmPassword &&
               formik.errors.confirmPassword ? (
                 <small className="error-message">
                   {formik.errors.confirmPassword}
+                </small>
+              ) : null}
+
+              <label htmlFor="profilePic" className="d-flex mt-3  mb-1">
+                <div style={{ fontSize: "0.7rem" }}>
+                  Upload Profile Picture:
+                </div>
+              </label>
+              <input
+                type="file"
+                id="profilePic"
+                name="profilePic"
+                className="form-control formInput"
+                onChange={(e) => {
+                  formik.setFieldValue("profilePic", e.currentTarget.files[0]);
+                  setProfilePic(e.currentTarget.files[0]);
+                }}
+                style={{ marginTop: "0rem" }}
+                {...formik.getFieldProps("profilePic")}
+              />
+
+              {formik.touched.profilePic && formik.errors.profilePic ? (
+                <small className="error-message">
+                  {formik.errors.profilePic}
                 </small>
               ) : null}
               <button

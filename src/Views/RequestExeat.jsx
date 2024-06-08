@@ -47,8 +47,6 @@ export default function RequestExeat() {
       values.accomp_staff_name = StaffData.find(
         (info) => values.accomp_staff_id == info.Id_No
       ).name;
-      // console.log(`Driver Name:`, values.driver_name);
-      // console.log(`Accomp Staff Name:`, values.accomp_staff_name);
       console.log(values);
       requestExeat(values);
     },

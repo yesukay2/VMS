@@ -4,12 +4,13 @@ import "../App.css";
 
 export default function ManageExeat({
   id,
-  name,
-  avatar,
-  time,
-  accomp_staff,
+  vehicle_no,
+  driver_name,
+  accomp_staff_name,
+  time_logged,
   destination,
   purpose,
+  profilePic,
 }) {
   const [approvedTime, setApprovedTime] = useState("");
   const [rejectedTime, setRejectedTime] = useState("");
@@ -46,12 +47,21 @@ export default function ManageExeat({
     }
   };
   return (
-    <li id={id}>
+    <li
+      id={id}
+      className="p-3"
+      style={{
+        border: "1px solid var(--orange)",
+        borderRadius: "5px",
+        marginBottom: "1rem",
+        width: "100%",
+      }}
+    >
       <div className="d-flex flex-row align-items-center justify-content-between manager-dash">
         <div className="d-flex flex-row align-items-center exeat">
           <div className="">
             <img
-              src={avatar}
+              src={profilePic ? profilePic : "src/assets/avatar/avatar4.jpg"}
               alt="Profile Picture"
               className=" profile-picture img-fluid rounded-circle"
             />
@@ -68,7 +78,7 @@ export default function ManageExeat({
               >
                 Driver:
               </span>
-              <span style={{ fontWeight: "bold" }}>{name}</span>
+              <span style={{ fontWeight: "bold" }}>{driver_name}</span>
             </h5>
             <p className="mb-0 exeat-info">
               <span
@@ -81,7 +91,7 @@ export default function ManageExeat({
               >
                 Accomp. Staff:
               </span>
-              {accomp_staff}
+              {accomp_staff_name}
             </p>
             <p className="mb-0 exeat-info">
               <span
@@ -92,15 +102,30 @@ export default function ManageExeat({
                   fontSize: "0.8rem",
                 }}
               >
-                Time Logged:
+                Vehicle No:
               </span>
-              {time}
+              {vehicle_no}
             </p>
             <p className="mb-0 exeat-info">
               <span
                 style={{
                   fontWeight: "lighter",
                   color: "var(--green)",
+                  marginRight: "0.5rem",
+                  fontSize: "0.8rem",
+                }}
+              >
+                Time Logged:
+              </span>
+              {time_logged.substring(0, 10) +
+                " " +
+                time_logged.substring(11, 19)}
+            </p>
+            <p className="mb-0 exeat-info">
+              <span
+                style={{
+                  fontWeight: "lighter",
+                  color: "var(--orange)",
                   marginRight: "0.5rem",
                   fontSize: "0.8rem",
                 }}
@@ -113,7 +138,7 @@ export default function ManageExeat({
               <span
                 style={{
                   fontWeight: "lighter",
-                  color: "var(--orange)",
+                  color: "var(--green)",
                   marginRight: "0.5rem",
                   fontSize: "0.8rem",
                 }}
@@ -150,7 +175,6 @@ export default function ManageExeat({
           </button>
         </div>
         <div className="d-flex flex-column justify-content-between">
-          {/* TODO: Add button to resolve request and remove from list */}
           <button
             className="btn resolve-btn resolve-btn-1"
             onClick={() => resolve()}
@@ -159,17 +183,18 @@ export default function ManageExeat({
           </button>
         </div>
       </div>
-      <hr className="w-100" style={{ color: "var(--orange)" }}></hr>
     </li>
+    // <hr className="w-100" style={{ color: "black" }}></hr>
   );
 }
 
 ManageExeat.propTypes = {
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
-  accomp_staff: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  driver_name: PropTypes.string.isRequired,
+  profilePic: PropTypes.string,
+  time_logged: PropTypes.string.isRequired,
+  accomp_staff_name: PropTypes.string.isRequired,
+  vehicle_no: PropTypes.string.isRequired,
   destination: PropTypes.string.isRequired,
   purpose: PropTypes.string.isRequired,
 };

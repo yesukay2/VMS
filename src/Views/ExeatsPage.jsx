@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Exeat from "../Components/Exeat";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
-import { isString } from "formik";
 
 const requireAuth = () => {
   const token = localStorage.getItem("token");
@@ -20,7 +19,6 @@ export default function ExeatsPage() {
     useEffect(() => {
       const getExeats = async () =>
         await axios.get("http://localhost:3000/vms/exeats").then((res) => {
-          console.log(res.data);
           return setRequestData(res.data);
         });
 
@@ -49,8 +47,8 @@ export default function ExeatsPage() {
               return (
                 <Exeat
                   key={index}
-                  driverId={exeat.driver_id}
                   vehicleNo={exeat.vehicle_no}
+                  driverId={exeat.driver_id}
                   driverName={exeat.driver_name}
                   accompStaffId={exeat.accomp_staff_id}
                   accompStaffName={exeat.accomp_staff_name}

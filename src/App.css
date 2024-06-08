@@ -500,6 +500,10 @@ body {
         width: 15rem;
     }
 
+    .formInput-file {
+        width: 10rem;
+    }
+
     form>input:focus {
         border: 1px solid var(--green);
     }
