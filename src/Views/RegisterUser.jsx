@@ -35,6 +35,10 @@ export default function RegisterUser() {
     },
   });
 
+  const convertProfilePic = (e) => {
+    setProfilePic(e.target.files[0]);
+  };
+
   const registerEmployee = async (values) => {
     try {
       formik.setSubmitting(true);
@@ -195,10 +199,7 @@ export default function RegisterUser() {
                 id="profilePic"
                 name="profilePic"
                 className="form-control formInput"
-                onChange={(e) => {
-                  formik.setFieldValue("profilePic", e.currentTarget.files[0]);
-                  setProfilePic(e.currentTarget.files[0]);
-                }}
+                onChange={convertProfilePic}
                 style={{ marginTop: "0rem" }}
                 {...formik.getFieldProps("profilePic")}
               />

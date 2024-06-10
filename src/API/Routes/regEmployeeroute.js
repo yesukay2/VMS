@@ -6,7 +6,7 @@ const router = Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./Profile-Pics");
+    cb(null, "./profilePic");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname`_${Date.now()}`);
@@ -15,6 +15,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/register-employee", upload.single("Profile"), registerEmployee);
+router.post(
+  "/register-employee",
+  upload.single("profilePic"),
+  registerEmployee
+);
 
 export default router;
