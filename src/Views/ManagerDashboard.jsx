@@ -54,13 +54,11 @@ export default function ManagerDashboard() {
                       key={exeat._id}
                       vehicle_no={exeat.vehicle_no}
                       driver_name={exeat.driver_name}
-                      profilePic={
-                        employeeData.find(
-                          (employee) =>
-                            parseInt(employee.Id_No) ==
-                            parseInt(exeat.driver_id)
-                        ).profilePic
-                      }
+                      // profilePic={
+                      //   employeeData.find(
+                      //     (employee) => employee.Id_No == exeat.driver_id
+                      //   ).profilePic
+                      // }
                       time_logged={exeat.time_logged}
                       destination={exeat.destination}
                       purpose={exeat.purpose}

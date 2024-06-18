@@ -6,14 +6,13 @@ const router = Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./profilePic");
+    cb(null, "src/API/Images");
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname`_${Date.now()}`);
+    cb(null, `${Date.now()}_${file.originalname}`);
   },
 });
-
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 router.post(
   "/register-employee",

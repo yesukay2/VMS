@@ -4,11 +4,11 @@ import process from "process";
 import bcrypt from "bcrypt";
 
 const registerEmployee = async (req, res) => {
-  const { Id_No, email, name, password, role, profilePic } = req.body;
-  const salt = bcrypt.genSaltSync(parseInt(process.env.SALT_ROUNDS));
-  const hashedPassword = await bcrypt.hash(password, salt);
-
   try {
+    const { Id_No, email, name, password, role } = req.body;
+    const profilePic = req.file ? req.file.path : null;
+    const salt = bcrypt.genSaltSync(parseInt(process.env.SALT_ROUNDS));
+    const hashedPassword = await bcrypt.hash(password, salt);
     const user = await EmployeeModel.findOne({ email: email });
     user == null
       ? await EmployeeModel.create({

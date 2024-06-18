@@ -30,20 +30,33 @@ export default function RegisterUser() {
     initialValues: initialValues,
     validationSchema: RegisterValidation,
     onSubmit: (values) => {
-      values.profilePic = profilePic;
-      registerEmployee(values);
+      let data = new FormData();
+      data.append("Id_No", values.Id_No);
+      data.append("name", values.name);
+      data.append("email", values.email);
+      data.append("password", values.password);
+      data.append("confirmPassword", values.confirmPassword);
+      data.append("role", values.role);
+      data.append("profilePic", profilePic);
+
+      console.log(`profile pic`, profilePic);
+      registerEmployee(data);
     },
   });
 
-  const convertProfilePic = (e) => {
-    setProfilePic(e.target.files[0]);
-  };
-
-  const registerEmployee = async (values) => {
+  const registerEmployee = async (data) => {
+    console.log("console  data");
+    console.log(data.profilePic);
+    console.log(data);
     try {
       formik.setSubmitting(true);
       await axios
-        .post("http://localhost:3000/vms/employee/register-employee", values)
+        .post("http://localhost:3000/vms/employee/register-employee", data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        })
         .then(() => {
           formik.setSubmitting(false);
           scrollTo(0, 0);
@@ -57,6 +70,8 @@ export default function RegisterUser() {
           formik.resetForm();
         });
     } catch (error) {
+      formik.setSubmitting(false);
+      scrollTo(0, 0);
       console.log(error);
       const badgeNotification = document.getElementById("badgeNotification");
       if (error.response.status == 400) {
@@ -199,7 +214,10 @@ export default function RegisterUser() {
                 id="profilePic"
                 name="profilePic"
                 className="form-control formInput"
-                onChange={convertProfilePic}
+                onChange={(e) => {
+                  setProfilePic(e.target.files[0]);
+                  formik.setFieldValue("profilePic", e.target.files[0]);
+                }}
                 style={{ marginTop: "0rem" }}
                 {...formik.getFieldProps("profilePic")}
               />

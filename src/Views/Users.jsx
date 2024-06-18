@@ -77,6 +77,7 @@ const Users = () => {
                     idNumber={user.Id_No}
                     email={user.email}
                     role={user.role}
+                    profilePic={user.profilePic}
                   />
                 );
               })}

@@ -2,9 +2,10 @@ import React from "react";
 import "../App.css";
 import Proptypes from "prop-types";
 
-const UserInfo = ({ fullName, idNumber, email, role }) => {
+const UserInfo = ({ fullName, idNumber, email, role, profilePic }) => {
   return (
     <div className="card p-2 text-center user-info">
+      <img src={profilePic} alt="profilePic" className="profilePic" />
       <h5>{fullName}</h5>
       <hr className="mt-0" style={{ color: "var(--orange)" }} />
       <div style={{ textAlign: "left", fontSize: "0.8rem", marginTop: "0%" }}>
@@ -30,4 +31,5 @@ UserInfo.propTypes = {
   idNumber: Proptypes.string.isRequired,
   email: Proptypes.string.isRequired,
   role: Proptypes.string.isRequired,
+  profilePic: Proptypes.string.isRequired,
 };
