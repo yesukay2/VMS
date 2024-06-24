@@ -1,6 +1,5 @@
 import "../App.css";
 import axios from "axios";
-import { useState } from "react";
 import { useFormik } from "formik";
 import { RegisterValidation } from "./RegisterValidation.jsx";
 import { Navigate } from "react-router-dom";
@@ -24,30 +23,16 @@ const requireAuth = () => {
 };
 
 export default function RegisterUser() {
-  const [profilePic, setProfilePic] = useState();
-
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: RegisterValidation,
-    onSubmit: (values) => {
-      let data = new FormData();
-      data.append("Id_No", values.Id_No);
-      data.append("name", values.name);
-      data.append("email", values.email);
-      data.append("password", values.password);
-      data.append("confirmPassword", values.confirmPassword);
-      data.append("role", values.role);
-      data.append("profilePic", profilePic);
-
-      console.log(`profile pic`, profilePic);
-      registerEmployee(data);
+    onSubmit: async (values) => {
+      registerEmployee(values);
+      console.log(`values ->>`, values);
     },
   });
 
   const registerEmployee = async (data) => {
-    console.log("console  data");
-    console.log(data.profilePic);
-    console.log(data);
     try {
       formik.setSubmitting(true);
       await axios
@@ -213,10 +198,10 @@ export default function RegisterUser() {
                 type="file"
                 id="profilePic"
                 name="profilePic"
+                accept="image/*"
                 className="form-control formInput"
                 onChange={(e) => {
-                  setProfilePic(e.target.files[0]);
-                  formik.setFieldValue("profilePic", e.target.files[0]);
+                  formik.setFieldValue("profilePic", e.currentTarget.files[0]);
                 }}
                 style={{ marginTop: "0rem" }}
                 {...formik.getFieldProps("profilePic")}

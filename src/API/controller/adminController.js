@@ -5,8 +5,8 @@ import bcrypt from "bcrypt";
 
 const registerEmployee = async (req, res) => {
   try {
-    const { Id_No, email, name, password, role } = req.body;
-    const profilePic = req.file ? req.file.path : null;
+    const { Id_No, email, name, password, role, profilePic } = req.body;
+    const imageUrl = `http://localhost:5000/images/${profilePic}`;
     const salt = bcrypt.genSaltSync(parseInt(process.env.SALT_ROUNDS));
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await EmployeeModel.findOne({ email: email });
@@ -18,7 +18,7 @@ const registerEmployee = async (req, res) => {
           password: hashedPassword,
           date: Date.now(),
           role: role,
-          profilePic: profilePic,
+          profilePic: imageUrl,
         }).then(() =>
           res.status(201).json({ message: "New Employee Created!" })
         )

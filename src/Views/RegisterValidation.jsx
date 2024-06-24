@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-const RegisterValidation = Yup.object({
+const RegisterValidation = Yup.object().shape({
   Id_No: Yup.string("ID No. must be a 4 digits number")
     .matches(/^\d{4}$/, "ID No. invalid")
     .required("ID No. is required"),
@@ -21,9 +21,10 @@ const RegisterValidation = Yup.object({
     .oneOf([Yup.ref("password")], "Passwords don't match")
     .required("Confirm Password is required"),
   role: Yup.string().required("Role is required"),
-  profilePic: Yup.string("Profile Picture is invalid").required(
-    "Profile Picture is required"
-  ),
+  // profilePic: Yup.string("Profile Picture is invalid").required(
+  //   "Profile Picture is required"
+  // ),
+  profilePic: Yup.mixed().required("File Required!"),
 });
 
 export { RegisterValidation };
