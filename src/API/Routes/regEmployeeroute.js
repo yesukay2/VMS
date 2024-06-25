@@ -18,6 +18,7 @@ const router = Router();
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // cb(null, "/src/API/uploads");
+    cb(null, "/public/uploads");
     cb(null, uploadDirectory);
   },
   filename: function (req, file, cb) {
@@ -26,6 +27,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-router.post("/register-employee", upload.single("image"), registerEmployee);
+router.post(
+  "/register-employee",
+  upload.single("profilePic"),
+  registerEmployee
+);
 
 export default router;

@@ -28,7 +28,6 @@ export default function RegisterUser() {
     validationSchema: RegisterValidation,
     onSubmit: async (values) => {
       registerEmployee(values);
-      console.log(`values ->>`, values);
     },
   });
 
@@ -42,7 +41,8 @@ export default function RegisterUser() {
             "Content-Type": "multipart/form-data",
           },
         })
-        .then(() => {
+        .then((res) => {
+          console.log(res);
           formik.setSubmitting(false);
           scrollTo(0, 0);
           const badgeNotification =
