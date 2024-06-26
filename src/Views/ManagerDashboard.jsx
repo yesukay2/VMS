@@ -1,6 +1,6 @@
 // import React from "react";
 import "../App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ManageExeat from "../Components/ManageExeat.jsx";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
@@ -16,22 +16,42 @@ const requireAuth = () => {
 export default function ManagerDashboard() {
   const [manageExeatData, setManageExeatData] = useState([]);
   const [employeeData, setEmployeeData] = useState([]);
-  try {
-    axios.get("http://localhost:3000/vms/exeats").then((res) => {
-      setManageExeatData(res.data);
-    });
-  } catch (error) {
-    console.log(error);
-  }
 
-  try {
-    axios.get("http://localhost:3000/vms/employees").then((res) => {
-      setEmployeeData(res.data);
-    });
-  } catch (error) {
-    console.log(error);
-  }
+  useEffect(() => {
+    const getData = () => {
+      try {
+        axios
+          .get("http://localhost:3000/vms/manager/manage-requests")
+          .then((res) => {
+            setManageExeatData(res.data);
+          });
+        axios.get("http://localhost:3000/vms/employees").then((res) => {
+          setEmployeeData(res.data);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
+    getData();
+  }, [manageExeatData, employeeData]);
+
+  const updateStatus = async (id, status) => {
+    try {
+      await axios.put(`http://localhost:3000/vms/manager/update-status/${id}`, {
+        status,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const findDriverPic = (id) => {
+    const picUrl = employeeData.find(
+      (employee) => employee.Id_No == id
+    ).profilePic;
+    return picUrl;
+  };
   return (
     <>
       {requireAuth() ? (
@@ -54,15 +74,16 @@ export default function ManagerDashboard() {
                       key={exeat._id}
                       vehicle_no={exeat.vehicle_no}
                       driver_name={exeat.driver_name}
-                      // profilePic={
-                      //   employeeData.find(
-                      //     (employee) => employee.Id_No == exeat.driver_id
-                      //   ).profilePic
-                      // }
+                      profilePic={
+                        `http://localhost:3000/${findDriverPic(
+                          exeat.driver_id
+                        )}` || "src/assets/avatar/avatar4.jpg"
+                      }
                       time_logged={exeat.time_logged}
                       destination={exeat.destination}
                       purpose={exeat.purpose}
                       accomp_staff_name={exeat.accomp_staff_name}
+                      updateStatus={updateStatus}
                     />
                   );
                 })}

@@ -11,6 +11,7 @@ export default function ManageExeat({
   destination,
   purpose,
   profilePic,
+  updateStatus,
 }) {
   const [approvedTime, setApprovedTime] = useState("");
   const [rejectedTime, setRejectedTime] = useState("");
@@ -25,6 +26,7 @@ export default function ManageExeat({
     minute = minute < 10 ? "0" + minute : minute;
     var strTime = hour + ":" + minute + " " + ampm;
     setApprovedTime(strTime);
+    updateStatus(id, "Approved");
     return approvedTime;
   };
 
@@ -38,6 +40,7 @@ export default function ManageExeat({
     minute = minute < 10 ? "0" + minute : minute;
     var strTime = hour + ":" + minute + " " + ampm;
     setRejectedTime(strTime);
+    updateStatus(id, "Declined");
     return rejectedTime;
   };
   const resolve = () => {
@@ -46,6 +49,7 @@ export default function ManageExeat({
       exeat.style.display = "none";
     }
   };
+
   return (
     <li
       id={id}
@@ -61,7 +65,7 @@ export default function ManageExeat({
         <div className="d-flex flex-row align-items-center exeat">
           <div className="">
             <img
-              src={profilePic ? profilePic : "src/assets/avatar/avatar4.jpg"}
+              src={profilePic}
               alt="Profile Picture"
               className=" profile-picture img-fluid rounded-circle"
             />
@@ -117,9 +121,11 @@ export default function ManageExeat({
               >
                 Time Logged:
               </span>
-              {time_logged.substring(0, 10) +
+              {time_logged.substring(0, 3) +
+                ", " +
+                time_logged.substring(4, 10) +
                 " " +
-                time_logged.substring(11, 19)}
+                time_logged.substring(11, 25)}
             </p>
             <p className="mb-0 exeat-info">
               <span
@@ -197,4 +203,5 @@ ManageExeat.propTypes = {
   vehicle_no: PropTypes.string.isRequired,
   destination: PropTypes.string.isRequired,
   purpose: PropTypes.string.isRequired,
+  updateStatus: PropTypes.func.isRequired,
 };

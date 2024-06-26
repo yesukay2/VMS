@@ -3,29 +3,38 @@ import VehicleModel from "../Models/Vehicle.js";
 import process from "process";
 import bcrypt from "bcrypt";
 
+const formatDate = () => {
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  day = day < 10 ? "0" + day : day;
+  month = month < 10 ? "0" + month : month;
+
+  return `${day}-${month}-${year}`;
+};
 const registerEmployee = async (req, res) => {
   try {
-    const { Id_No, email, name, password, role, profilePic } = req.body;
+    const { Id_No, email, name, password, role } = req.body;
+    const profilePic = req.file.path;
     const salt = bcrypt.genSaltSync(parseInt(process.env.SALT_ROUNDS));
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await EmployeeModel.findOne({ email: email });
-    // user == null
-    //   ?
-    await EmployeeModel.create({
-      Id_No: Id_No,
-      email: email,
-      name: name,
-      password: hashedPassword,
-      date: Date.now(),
-      role: role,
-      profilePic: profilePic,
-    }).then((res) => console.log(res));
-    //   .then(() =>
-    //     res.status(201).json({ message: "New Employee Created!" })
-    //   )
-    // : res.status(409).json({ message: "Employee Already Exists!" });
+    user == null
+      ? await EmployeeModel.create({
+          Id_No: Id_No,
+          email: email,
+          name: name,
+          password: hashedPassword,
+          date: formatDate(),
+          role: role,
+          profilePic: profilePic,
+        }).then(() =>
+          res.status(201).json({ message: "New Employee Created!" })
+        )
+      : res.status(409).json({ message: "Employee Already Exists!" });
   } catch (error) {
-    console.log(error);
     res.json(error);
   }
 };
@@ -46,10 +55,10 @@ const registerVehicle = async (req, res) => {
           reg_no: reg_no,
           chassis_no: chassis_no,
           color: color,
+          date: formatDate(),
         }).then(() => res.status(201).json({ message: "New Vehicle Created!" }))
       : res.status(409).json({ message: "Vehicle Already Exists!" });
   } catch (error) {
-    console.log(error);
     res.json(error);
   }
 };

@@ -41,8 +41,7 @@ export default function RegisterUser() {
             "Content-Type": "multipart/form-data",
           },
         })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           formik.setSubmitting(false);
           scrollTo(0, 0);
           const badgeNotification =
@@ -57,7 +56,7 @@ export default function RegisterUser() {
     } catch (error) {
       formik.setSubmitting(false);
       scrollTo(0, 0);
-      console.log(error);
+
       const badgeNotification = document.getElementById("badgeNotification");
       if (error.response.status == 400) {
         badgeNotification.innerHTML = "Bad Request";

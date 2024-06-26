@@ -1,28 +1,37 @@
 import { Router } from "express";
 import { registerEmployee } from "../controller/adminController.js";
 import multer from "multer";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
+import path from "path";
 import fs from "fs";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const router = Router();
 
-const uploadDirectory = join(__dirname, "../uploads/");
+const uploadDirectory = "uploads/";
 if (!fs.existsSync(uploadDirectory)) {
-  console.log(`pic upload`);
-  console.log(fs.existsSync(uploadDirectory));
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
-const router = Router();
+
+const formatDate = () => {
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  day = day < 10 ? "0" + day : day;
+  month = month < 10 ? "0" + month : month;
+
+  return `${day}-${month}-${year}`;
+};
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // cb(null, "/src/API/uploads");
-    cb(null, "/public/uploads");
     cb(null, uploadDirectory);
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    cb(
+      null,
+      req.body.name + "-" + formatDate() + path.extname(file.originalname)
+    );
   },
 });
 const upload = multer({ storage: storage });

@@ -23,7 +23,7 @@ export default function ExeatsPage() {
         });
 
       getExeats();
-    }, []);
+    }, [requestData]);
   } catch (error) {
     console.log(error);
   }

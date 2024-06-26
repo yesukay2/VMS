@@ -1,5 +1,18 @@
 import ExeatModel from "../Models/ExeatRequest.js";
 
+const formatDate = () => {
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1; // Months are zero-based
+  let year = date.getFullYear();
+
+  // Add leading zero if day or month is less than 10
+  day = day < 10 ? "0" + day : day;
+  month = month < 10 ? "0" + month : month;
+
+  return `${day}-${month}-${year}`;
+};
+
 const requestExeat = async (req, res) => {
   try {
     const {
@@ -21,7 +34,7 @@ const requestExeat = async (req, res) => {
       accomp_staff_name: accomp_staff_name,
       purpose: purpose,
       signatory: signatory,
-      time_logged: new Date(),
+      time_logged: formatDate(),
       status: "Pending",
       time_out: Date("00:00"),
       time_in: Date("00:00"),

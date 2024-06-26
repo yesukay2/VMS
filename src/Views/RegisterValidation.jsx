@@ -21,9 +21,6 @@ const RegisterValidation = Yup.object().shape({
     .oneOf([Yup.ref("password")], "Passwords don't match")
     .required("Confirm Password is required"),
   role: Yup.string().required("Role is required"),
-  // profilePic: Yup.string("Profile Picture is invalid").required(
-  //   "Profile Picture is required"
-  // ),
   profilePic: Yup.mixed().required("File Required!"),
 });
 

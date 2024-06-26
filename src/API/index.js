@@ -33,8 +33,6 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
-app.use("./uploads", express.static(path.join(__dirname, "./uploads")));
-// app.use("./uploads", express.static(process.cwd() + "./uploads"));
 app.use(cors());
 
 app.use(
@@ -53,6 +51,8 @@ app.use("/vms/manager", managerRoute);
 app.use("/vms/employee", regEmployeeRoute);
 app.use("/vms/vehicle", regVehicleRoute);
 app.use("/vms", securityRoute);
+
+app.use("/uploads", express.static("uploads"));
 
 connect(process.env.VITE_APP_MONGO_URI, {
   serverApi: {

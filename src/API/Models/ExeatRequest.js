@@ -10,11 +10,11 @@ const ExeatRequestSchema = new mongoose.Schema({
   purpose: { type: String, required: true },
   signatory: { type: String, required: true },
   status: { type: String, default: "Pending" },
-  time_logged: { type: Date },
-  time_approved: { type: Date, default: Date("00:00") },
-  time_declined: { type: Date },
-  time_out: { type: Date },
-  time_in: { type: Date },
+  time_logged: { type: String },
+  time_approved: { type: String, default: Date("00:00") },
+  time_declined: { type: String },
+  time_out: { type: String },
+  time_in: { type: String },
 });
 
 const ExeatModel = mongoose.model("Exeat_Request", ExeatRequestSchema);
