@@ -55,6 +55,7 @@ export default function ExeatsPage() {
                   destination={exeat.destination}
                   purpose={exeat.purpose}
                   timeLogged={exeat.time_logged}
+                  status={exeat.status}
                 />
               );
             })}

@@ -34,7 +34,7 @@ export default function ManagerDashboard() {
     };
 
     getData();
-  }, [manageExeatData, employeeData]);
+  }, [manageExeatData]);
 
   const updateStatus = async (id, status) => {
     try {

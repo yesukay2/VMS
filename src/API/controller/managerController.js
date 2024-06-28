@@ -17,7 +17,6 @@ const updateStatus = async (req, res) => {
   try {
     const { status } = req.body;
     const { id_no } = req.params;
-    console.log(status, id_no);
     await ExeatModel.findOneAndUpdate(
       { _id: id_no },
       {

@@ -2,7 +2,15 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import "../App.css";
 
-export default function ApprovedExeat({ name, avatar, time, id }) {
+export default function ApprovedExeat({
+  id,
+  vehicle_no,
+  driver_name,
+  accomp_staff_name,
+  time_logged,
+  destination,
+  profilePic,
+}) {
   const [timeOut, setTimeOut] = useState("");
   const [timeIn, setTimeIn] = useState("");
 
@@ -48,14 +56,17 @@ export default function ApprovedExeat({ name, avatar, time, id }) {
         <div className="d-flex flex-row align-items-center exeat">
           <div className="">
             <img
-              src={avatar}
+              src={profilePic}
               alt="Profile Picture"
               className=" profile-picture img-fluid rounded-circle"
             />
           </div>
           <div>
-            <h5 className="exeat-name">{name}</h5>
-            <p className="mb-0 approved-time">{time}</p>
+            <h5 className="exeat-name">{driver_name}</h5>
+            <p className="mb-0">{accomp_staff_name}</p>
+            <p className="mb-0">{vehicle_no}</p>
+            <p className="mb-0">{destination}</p>
+            <p className="mb-0 approved-time">{time_logged}</p>
           </div>
         </div>
         <div className="d-flex flex-column justify-content-between">
@@ -93,7 +104,11 @@ export default function ApprovedExeat({ name, avatar, time, id }) {
 }
 
 ApprovedExeat.propTypes = {
-  name: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  driver_name: PropTypes.string.isRequired,
+  vehicle_no: PropTypes.string.isRequired,
+  profilePic: PropTypes.string.isRequired,
+  time_logged: PropTypes.string.isRequired,
+  destination: PropTypes.string.isRequired,
+  accomp_staff_name: PropTypes.string.isRequired,
 };
