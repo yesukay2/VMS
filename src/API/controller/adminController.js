@@ -63,4 +63,61 @@ const registerVehicle = async (req, res) => {
   }
 };
 
-export { registerEmployee, registerVehicle };
+const updateUser = async (req, res) => {
+  const { Id_No } = req.params;
+  const { name, email, role } = req.body;
+  let { password } = req.body;
+  const profilePic = req.file ? req.file.path : null; // Assuming you handle file uploads
+
+  try {
+    // Find the user by ID
+    const user = await EmployeeModel.findOne({ Id_No: Id_No });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update the fields if they exist in the request
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (role) user.role = role;
+    if (password) {
+      // Hash the password before saving
+      password = await bcrypt.hash(password, 10);
+      user.password = password;
+    }
+    if (profilePic) user.profilePic = profilePic;
+
+    // Save the updated user
+    await user.save();
+
+    res.status(200).json({ message: "User updated successfully", user });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    const { Id_No } = req.params;
+    const user = await EmployeeModel.findOne({ Id_No: Id_No });
+    user == null
+      ? res.status(404).json({ message: "User Not Found!" })
+      : await EmployeeModel.deleteOne({ Id_No: Id_No }).then(() =>
+          res.status(200).json({ message: "User Deleted!" })
+        );
+  } catch (error) {
+    res.json(error);
+  }
+};
+
+const getUser = async (req, res) => {
+  try {
+    const { Id_No } = req.params;
+    const user = await EmployeeModel.findOne({ Id_No: Id_No });
+    res.status(200).json(user);
+  } catch (error) {
+    res.json(error.message);
+  }
+};
+export { registerEmployee, registerVehicle, updateUser, deleteUser, getUser };

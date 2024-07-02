@@ -11,11 +11,15 @@ const securityDashboard = async (req, res) => {
 
 const recordTimeOut = async (req, res) => {
   try {
-    const { id } = req.body;
-    const set_timeOut = Date().now;
-    await ExeatModel.findByIdAndUpdate(id, {
-      time_out: set_timeOut,
-    });
+    const { id } = req.params;
+    const { timeOut } = req.body;
+
+    await ExeatModel.findOneAndUpdate(
+      { _id: id },
+      {
+        time_out: timeOut,
+      }
+    );
   } catch (error) {
     res.json(error.message);
   }
@@ -23,14 +27,29 @@ const recordTimeOut = async (req, res) => {
 
 const recordTimeIn = async (req, res) => {
   try {
-    const { id } = req.body;
-    const set_timeIn = Date().now;
+    const { id } = req.params;
+    const { timeIn } = req.body;
+
     await ExeatModel.findByIdAndUpdate(id, {
-      time_in: set_timeIn,
+      time_in: timeIn,
     });
   } catch (error) {
     res.json(error.message);
   }
 };
 
-export { securityDashboard, recordTimeOut, recordTimeIn };
+const resolveExeat = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await ExeatModel.findByIdAndUpdate(
+      { _id: id },
+      {
+        status: "Resolved",
+      }
+    );
+  } catch (error) {
+    res.json(error.message);
+  }
+};
+
+export { securityDashboard, recordTimeOut, recordTimeIn, resolveExeat };

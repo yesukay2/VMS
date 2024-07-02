@@ -9,6 +9,9 @@ import securityRoute from "./Routes/securityRoute.js";
 import loginRoute from "./Routes/loginRoute.js";
 import employeeRoute from "./Routes/employeeRoute.js";
 import exeatRoute from "./Routes/exeatsRoute.js";
+import deleteRoute from "./Routes/deleteUserRoute.js";
+import updateUser from "./Routes/editUserRoute.js";
+import getUser from "./Routes/getUserRoute.js";
 import process from "process";
 import dotenv from "dotenv";
 import { ServerApiVersion } from "mongodb";
@@ -20,11 +23,6 @@ import {
   checkUserRole,
   checkUserAuth,
 } from "./Middleware/requestActions.js";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -50,7 +48,10 @@ app.use("/vms", employeeRoute);
 app.use("/vms/manager", managerRoute);
 app.use("/vms/employee", regEmployeeRoute);
 app.use("/vms/vehicle", regVehicleRoute);
-app.use("/vms", securityRoute);
+app.use("/vms/checkpoint", securityRoute);
+app.use("/vms/employees", deleteRoute);
+app.use("/vms/employee", updateUser);
+app.use("/vms/employee", getUser);
 
 app.use("/uploads", express.static("uploads"));
 

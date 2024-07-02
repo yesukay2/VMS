@@ -5,12 +5,13 @@ const formatDate = () => {
   let day = date.getDate();
   let month = date.getMonth() + 1; // Months are zero-based
   let year = date.getFullYear();
+  let time = date.toLocaleTimeString();
 
   // Add leading zero if day or month is less than 10
   day = day < 10 ? "0" + day : day;
   month = month < 10 ? "0" + month : month;
 
-  return `${day}-${month}-${year}`;
+  return `${day}-${month}-${year} - ${time}`;
 };
 
 const requestExeat = async (req, res) => {
@@ -36,10 +37,10 @@ const requestExeat = async (req, res) => {
       signatory: signatory,
       time_logged: formatDate(),
       status: "Pending",
-      time_out: Date("00:00"),
-      time_in: Date("00:00"),
-      time_approved: Date("00:00"),
-      time_declined: Date("00:00"),
+      time_out: "00:00",
+      time_in: "00:00",
+      time_approved: "00:00",
+      time_declined: "00:00",
     });
 
     await newExeat.save();

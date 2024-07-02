@@ -60,6 +60,10 @@ const router = createBrowserRouter([
         path: "employees",
         element: <Users />,
       },
+      {
+        path: "/edit-user/:Id_No",
+        element: <RegisterUser />,
+      },
     ],
   },
 ]);

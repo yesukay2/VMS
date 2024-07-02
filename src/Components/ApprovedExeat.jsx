@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
 import "../App.css";
+import { useState } from "react";
+import axios from "axios";
 
 export default function ApprovedExeat({
   id,
@@ -10,48 +11,55 @@ export default function ApprovedExeat({
   time_logged,
   destination,
   profilePic,
+  recordTimeIn,
+  recordTimeOut,
+  timeInStatus,
+  timeOutStatus,
+  resolve,
 }) {
-  const [timeOut, setTimeOut] = useState("");
-  const [timeIn, setTimeIn] = useState("");
+  try {
+    axios.get();
+  } catch (error) {
+    console.log(error);
+  }
 
-  const recordTimeOut = () => {
+  const recordTimeInFunction = () => {
     var date = new Date();
     var hour = date.getHours();
     var minute = date.getMinutes();
     var ampm = hour >= 12 ? "PM" : "AM";
     hour = hour % 12;
-    hour = hour ? hour : 12; // the hour '0' should be '12'
+    hour = hour ? hour : 12;
     minute = minute < 10 ? "0" + minute : minute;
     var strTime = hour + ":" + minute + " " + ampm;
-    setTimeOut(strTime);
-    document.getElementById("timeOut-btn").disabled = true;
-    return timeOut;
+    recordTimeIn(id, strTime);
+    return strTime;
   };
 
-  const recordTimeIn = () => {
-    if (timeOut.length > 0) {
-      var date = new Date();
-      var hour = date.getHours();
-      var minute = date.getMinutes();
-      var ampm = hour >= 12 ? "PM" : "AM";
-      hour = hour % 12;
-      hour = hour ? hour : 12; // the hour '0' should be '12'
-      minute = minute < 10 ? "0" + minute : minute;
-      var strTime = hour + ":" + minute + " " + ampm;
-      setTimeIn(strTime);
-      return timeIn;
-    }
-    return timeIn;
+  const recordTimeOutFunction = () => {
+    var date = new Date();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var ampm = hour >= 12 ? "PM" : "AM";
+    hour = hour % 12;
+    hour = hour ? hour : 12;
+    minute = minute < 10 ? "0" + minute : minute;
+    var strTime = hour + ":" + minute + " " + ampm;
+    recordTimeOut(id, strTime);
+    return strTime;
   };
 
-  const resolve = () => {
-    if (timeOut.length > 0 && timeIn.length > 0) {
-      const exeat = document.getElementById(id);
-      exeat.style.display = "none";
-    }
-  };
   return (
-    <div id={id}>
+    <div
+      id={id}
+      className="mt-3 p-3"
+      style={{
+        border: "1px solid var(--orange)",
+        borderRadius: "5px",
+        marginBottom: "1rem",
+        width: "100%",
+      }}
+    >
       <div className="d-flex flex-row align-items-center justify-content-between">
         <div className="d-flex flex-row align-items-center exeat">
           <div className="">
@@ -62,43 +70,103 @@ export default function ApprovedExeat({
             />
           </div>
           <div>
-            <h5 className="exeat-name">{driver_name}</h5>
-            <p className="mb-0">{accomp_staff_name}</p>
-            <p className="mb-0">{vehicle_no}</p>
-            <p className="mb-0">{destination}</p>
-            <p className="mb-0 approved-time">{time_logged}</p>
+            <p className="mb-0 exeat-info">
+              <span
+                style={{
+                  fontWeight: "lighter",
+                  color: "var(--green)",
+                  marginRight: "0.5rem",
+                  fontSize: "0.8rem",
+                }}
+              >
+                Driver:{" "}
+              </span>
+              {driver_name}
+            </p>
+            <p className="mb-0 exeat-info">
+              <span
+                style={{
+                  fontWeight: "lighter",
+                  color: "var(--orange)",
+                  marginRight: "0.5rem",
+                  fontSize: "0.8rem",
+                }}
+              >
+                Accomp. Staff:{" "}
+              </span>
+              {accomp_staff_name}
+            </p>
+            <p className="mb-0 exeat-info">
+              <span
+                style={{
+                  fontWeight: "lighter",
+                  color: "var(--green)",
+                  marginRight: "0.5rem",
+                  fontSize: "0.8rem",
+                }}
+              >
+                Vehicle No:{" "}
+              </span>
+              {vehicle_no}
+            </p>
+            <p className="mb-0 exeat-info">
+              <span
+                style={{
+                  fontWeight: "lighter",
+                  color: "var(--orange)",
+                  marginRight: "0.5rem",
+                  fontSize: "0.8rem",
+                }}
+              >
+                Destination:{" "}
+              </span>
+              {destination}
+            </p>
+            <p className="mb-0 exeat-info">
+              <span
+                style={{
+                  fontWeight: "lighter",
+                  color: "var(--green)",
+                  marginRight: "0.5rem",
+                  fontSize: "0.8rem",
+                }}
+              >
+                Time Logged:{" "}
+              </span>
+              {time_logged}
+            </p>
           </div>
         </div>
         <div className="d-flex flex-column justify-content-between">
           <div className="d-flex flex-row align-items-start gap-2">
-            <p className="record-time-label">Time Out:</p>
+            <p className="exeat-info d-inline-block w-30 ">Time Out:</p>
             <button
-              className="btn timeOut-btn mb-3"
-              onClick={() => recordTimeOut()}
-              disabled={timeOut.length > 0}
+              className="btn timeOut-btn mb-3 w-70"
+              onClick={() => recordTimeOutFunction()}
             >
-              {timeOut === "" ? "Record Time Out" : timeOut}
+              {timeOutStatus}
             </button>
           </div>
           <div className="d-flex flex-row align-items-start gap-2">
-            <p className="record-time-label"> Time In:</p>
+            <p className="exeat-info w-30"> Time In:</p>
             <button
-              className="btn timeIn-btn"
-              onClick={() => recordTimeIn()}
-              disabled={timeIn.length > 0}
+              className="btn timeIn-btn w-70"
+              onClick={() => recordTimeInFunction()}
             >
-              {timeIn === "" ? "Record Time In" : timeIn}
+              {timeInStatus}
             </button>
           </div>
         </div>
         <div className="justify-content-between">
-          {/* TODO: Add button to resolve request and remove from list */}
-          <button className="btn resolve-btn" onClick={() => resolve()}>
+          <button
+            className="btn resolve-btn"
+            onClick={() => resolve(id, "Resolved")}
+            disabled={timeInStatus == "00:00" || timeOutStatus == "00:00"}
+          >
             Resolve
           </button>
         </div>
       </div>
-      <hr className="w-100" style={{ color: "var(--orange)" }}></hr>
     </div>
   );
 }
@@ -111,4 +179,9 @@ ApprovedExeat.propTypes = {
   time_logged: PropTypes.string.isRequired,
   destination: PropTypes.string.isRequired,
   accomp_staff_name: PropTypes.string.isRequired,
+  recordTimeIn: PropTypes.func,
+  recordTimeOut: PropTypes.func,
+  timeInStatus: PropTypes.string,
+  timeOutStatus: PropTypes.string,
+  resolve: PropTypes.func,
 };

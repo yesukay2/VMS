@@ -22,7 +22,7 @@ export default function ManageExeat({
     var minute = date.getMinutes();
     var ampm = hour >= 12 ? "PM" : "AM";
     hour = hour % 12;
-    hour = hour ? hour : 12; // the hour '0' should be '12'
+    hour = hour ? hour : 12;
     minute = minute < 10 ? "0" + minute : minute;
     var strTime = hour + ":" + minute + " " + ampm;
     setApprovedTime(strTime);
@@ -36,18 +36,12 @@ export default function ManageExeat({
     var minute = date.getMinutes();
     var ampm = hour >= 12 ? "PM" : "AM";
     hour = hour % 12;
-    hour = hour ? hour : 12; // the hour '0' should be '12'
+    hour = hour ? hour : 12;
     minute = minute < 10 ? "0" + minute : minute;
     var strTime = hour + ":" + minute + " " + ampm;
     setRejectedTime(strTime);
     updateStatus(id, "Declined");
     return rejectedTime;
-  };
-  const resolve = () => {
-    if (approvedTime.length > 0 || rejectedTime.length > 0) {
-      const exeat = document.getElementById(id);
-      exeat.style.display = "none";
-    }
   };
 
   return (
@@ -121,11 +115,7 @@ export default function ManageExeat({
               >
                 Time Logged:
               </span>
-              {time_logged.substring(0, 3) +
-                ", " +
-                time_logged.substring(4, 10) +
-                " " +
-                time_logged.substring(11, 25)}
+              {time_logged}
             </p>
             <p className="mb-0 exeat-info">
               <span
@@ -175,7 +165,7 @@ export default function ManageExeat({
           </button>
           <button
             className="btn mt-5 resolve-btn resolve-btn-2"
-            onClick={() => resolve()}
+            // onClick={() => resolve()}
           >
             Resolve
           </button>
@@ -183,14 +173,13 @@ export default function ManageExeat({
         <div className="d-flex flex-column justify-content-between">
           <button
             className="btn resolve-btn resolve-btn-1"
-            onClick={() => resolve()}
+            // onClick={() => resolve()}
           >
             Resolve
           </button>
         </div>
       </div>
     </li>
-    // <hr className="w-100" style={{ color: "black" }}></hr>
   );
 }
 
