@@ -5,6 +5,7 @@ import requestRoute from "./Routes/requestRoute.js";
 import managerRoute from "./Routes/managerRoute.js";
 import regEmployeeRoute from "./Routes/regEmployeeroute.js";
 import regVehicleRoute from "./Routes/regVehicleRoute.js";
+import getVehiclesRoute from "./Routes/getVehiclesRoute.js";
 import securityRoute from "./Routes/securityRoute.js";
 import loginRoute from "./Routes/loginRoute.js";
 import employeeRoute from "./Routes/employeeRoute.js";
@@ -18,17 +19,17 @@ import { ServerApiVersion } from "mongodb";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import session from "express-session";
-import {
-  checkParamRole,
-  checkUserRole,
-  checkUserAuth,
-} from "./Middleware/requestActions.js";
+// import {
+//   checkParamRole,
+//   checkUserRole,
+//   checkUserAuth,
+// } from "./Middleware/requestActions.js";
 
 dotenv.config();
 
 const app = express();
-app.use(bodyParser.json());
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -48,6 +49,7 @@ app.use("/vms", employeeRoute);
 app.use("/vms/manager", managerRoute);
 app.use("/vms/employee", regEmployeeRoute);
 app.use("/vms/vehicle", regVehicleRoute);
+app.use("/vms/vehicle", getVehiclesRoute);
 app.use("/vms/checkpoint", securityRoute);
 app.use("/vms/employees", deleteRoute);
 app.use("/vms/employee", updateUser);

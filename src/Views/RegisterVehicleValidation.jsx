@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-const RegisterVehicleValidation = Yup.object({
+const RegisterVehicleValidation = Yup.object().shape({
   vehicle_type: Yup.string("Vehicle type is invalid").required(
     "Vehicle type is required"
   ),
@@ -25,6 +25,9 @@ const RegisterVehicleValidation = Yup.object({
   chassis_no: Yup.string("Chassis Number is invalid")
     .matches(/^\d{17}$/, "Chassis Number must be 17 digits")
     .required("Chassis Number is required"),
+  parking_lot: Yup.string("Parking lot is invalid").required(
+    "Parking lot is required"
+  ),
 });
 
 export { RegisterVehicleValidation };

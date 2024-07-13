@@ -13,6 +13,7 @@ const initialValues = {
   reg_no: "",
   chassis_no: "",
   color: "",
+  parking_lot: "",
 };
 
 const requireAuth = () => {
@@ -27,7 +28,7 @@ export default function RegisterVehicle() {
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: RegisterVehicleValidation,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       registerVehicle(values);
     },
   });
@@ -35,18 +36,21 @@ export default function RegisterVehicle() {
   const registerVehicle = async (values) => {
     try {
       formik.setSubmitting(true);
-      await axios
-        .post("http://localhost:3000/vms/vehicle/register-vehicle", values)
-        .then(() => {
-          const badgeNotification =
-            document.getElementById("badgeNotification");
-          badgeNotification.innerHTML = "Vehicle Added Successfully!";
-          badgeNotification.style.display = "block";
-          setTimeout(() => {
-            badgeNotification.style.display = "none";
-          }, 3000);
-          formik.resetForm();
-        });
+      const response = await axios.post(
+        "http://localhost:3000/vms/vehicle/register-vehicle",
+        values
+      );
+      if (response.status === 200) {
+        formik.setSubmitting(false);
+        scrollTo(0, 0);
+        const badgeNotification = document.getElementById("badgeNotification");
+        badgeNotification.innerHTML = "Vehicle Added Successfully!";
+        badgeNotification.style.display = "block";
+        setTimeout(() => {
+          badgeNotification.style.display = "none";
+        }, 3000);
+        formik.resetForm();
+      }
     } catch (error) {
       console.log(error);
       const badgeNotification = document.getElementById("badgeNotification");
@@ -222,6 +226,25 @@ export default function RegisterVehicle() {
                     {formik.touched.color && formik.errors.color ? (
                       <small className="error-message">
                         {formik.errors.color}
+                      </small>
+                    ) : null}
+                  </div>
+                  <div className="registerInputCluster">
+                    <h6 className="form-label">Parking Lot</h6>
+                    <select
+                      className="formInput form-control"
+                      name="parking_lot"
+                      id="parking_lot"
+                      // defaultValue="select"
+                      {...formik.getFieldProps("parking_lot")}
+                    >
+                      <option value="">Select</option>
+                      <option value="Headquaters">Headquaters</option>
+                      <option value="Kel Office">Kel Office</option>
+                    </select>
+                    {formik.touched.parking_lot && formik.errors.parking_lot ? (
+                      <small className="error-message">
+                        {formik.errors.parking_lot}
                       </small>
                     ) : null}
                   </div>

@@ -12,6 +12,7 @@ import RegisterVehicle from "./Views/RegisterVehicle";
 import ExeatsPage from "./Views/ExeatsPage";
 import VehiclesPage from "./Views/VehiclesPage";
 import RegisterUser from "./Views/RegisterUser";
+import EditUserPage from "./Views/EditUserPage";
 import Users from "./Views/Users";
 
 const router = createBrowserRouter([
@@ -61,8 +62,8 @@ const router = createBrowserRouter([
         element: <Users />,
       },
       {
-        path: "/edit-user/:Id_No",
-        element: <RegisterUser />,
+        path: "edit-user/:Id_No",
+        element: <EditUserPage />,
       },
     ],
   },

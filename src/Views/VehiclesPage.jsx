@@ -2,8 +2,10 @@
 import "../App.css";
 import { Link } from "react-router-dom";
 import VehicleInfo from "../Components/VehicleInfo";
-import vehicles from "../vehiclesData";
+// import vehicles from "../vehiclesData";
 import { Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const requireAuth = () => {
   const token = localStorage.getItem("token");
@@ -14,6 +16,26 @@ const requireAuth = () => {
 };
 
 export default function VehiclesPage() {
+  const [vehicles, setVehicles] = useState([]);
+  const [exeats, setExeats] = useState([]);
+  const getVehicles = async () => {
+    const vehicles = await axios.get(
+      "http://localhost:3000/vms/vehicle/get-vehicles"
+    );
+    setVehicles(vehicles.data);
+  };
+  // console.log(vehicles);
+
+  const getExeats = async () => {
+    const exeats = await axios.get(
+      "http://localhost:3000/vms/vehicle/get-vehicles"
+    );
+    setExeats(exeats.data);
+  };
+  useEffect(() => {
+    getVehicles();
+    getExeats();
+  }, [vehicles, exeats]);
   return (
     <>
       {requireAuth() ? (
@@ -39,17 +61,17 @@ export default function VehiclesPage() {
               >
                 <h4 style={{ width: "25%" }}>Vehicle</h4>
                 <h4 style={{ width: "25%" }}>Status</h4>
-                <h4 style={{ width: "25%" }}>Driver</h4>
+                <h4 style={{ width: "25%" }}>Type</h4>
                 <h4 style={{ width: "25%" }}>Parking Lot</h4>
               </div>
               <hr className="w-100" style={{ color: "var(--orange)" }}></hr>
               {vehicles.map((vehicle) => (
                 <VehicleInfo
-                  key={vehicle.vehicleNumber}
-                  vehicleNumber={vehicle.vehicleNumber}
+                  key={vehicle.reg_no}
+                  vehicleNumber={vehicle.reg_no}
                   status={vehicle.status}
-                  driverName={vehicle.driverName}
-                  parkingLot={vehicle.parkingLot}
+                  vehicle_type={vehicle.vehicle_type}
+                  parking_lot={vehicle.parking_lot}
                 />
               ))}
             </div>

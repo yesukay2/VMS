@@ -30,8 +30,13 @@ const UserInfo = ({
       <img
         src={profilePic}
         alt="profilePic"
-        className="profilePic mb-3"
-        style={{ borderRadius: "5%" }}
+        className="profilePic mb-3 img-fluid rounded-circle align-self-center"
+        style={{
+          borderRadius: "5%",
+          width: "11.5rem",
+          height: "11.5rem",
+          objectFit: "cover",
+        }}
       />
       <h5>{fullName}</h5>
       <hr className="mt-0" style={{ color: "var(--orange)" }} />

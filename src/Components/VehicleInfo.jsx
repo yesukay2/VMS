@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 export default function VehicleInfo({
   vehicleNumber,
   status,
-  driverName,
-  parkingLot,
+  vehicle_type,
+  parking_lot,
 }) {
   return (
     <div>
@@ -37,10 +37,10 @@ export default function VehicleInfo({
           </div>
         )}
         <p style={{ width: "25%" }} className="vehicle-info">
-          {driverName}
+          {vehicle_type}
         </p>
         <p style={{ width: "25%" }} className="vehicle-info">
-          {parkingLot}
+          {parking_lot}
         </p>
       </div>
       <hr
@@ -54,6 +54,6 @@ export default function VehicleInfo({
 VehicleInfo.propTypes = {
   vehicleNumber: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  driverName: PropTypes.string.isRequired,
-  parkingLot: PropTypes.string.isRequired,
+  vehicle_type: PropTypes.string.isRequired,
+  parking_lot: PropTypes.string.isRequired,
 };

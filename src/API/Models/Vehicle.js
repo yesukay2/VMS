@@ -7,7 +7,8 @@ const VehicleSchema = new mongoose.Schema({
   reg_no: { type: String, required: true },
   chassis_no: { type: String, required: true },
   color: { type: String, required: true },
-  date: { type: Date, default: Date.now() },
+  parking_lot: { type: String, required: true },
+  date: { type: String },
 });
 
 const VehicleModel = mongoose.model("Vehicle", VehicleSchema);

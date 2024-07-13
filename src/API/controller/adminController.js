@@ -30,9 +30,7 @@ const registerEmployee = async (req, res) => {
           date: formatDate(),
           role: role,
           profilePic: profilePic,
-        }).then(() =>
-          res.status(201).json({ message: "New Employee Created!" })
-        )
+        }).then(res.status(200).json({ message: "New Employee Created!" }))
       : res.status(409).json({ message: "Employee Already Exists!" });
   } catch (error) {
     res.json(error);
@@ -40,10 +38,17 @@ const registerEmployee = async (req, res) => {
 };
 
 const registerVehicle = async (req, res) => {
-  const { vehicle_type, make, model, make_year, reg_no, chassis_no, color } =
-    req.body;
-
   try {
+    const {
+      vehicle_type,
+      make,
+      model,
+      make_year,
+      reg_no,
+      chassis_no,
+      color,
+      parking_lot,
+    } = req.body;
     const vehicleExists = await VehicleModel.findOne({ reg_no: reg_no });
 
     vehicleExists == null
@@ -55,8 +60,9 @@ const registerVehicle = async (req, res) => {
           reg_no: reg_no,
           chassis_no: chassis_no,
           color: color,
+          parking_lot: parking_lot,
           date: formatDate(),
-        }).then(() => res.status(201).json({ message: "New Vehicle Created!" }))
+        }).then(() => res.status(200).json({ message: "New Vehicle Created!" }))
       : res.status(409).json({ message: "Vehicle Already Exists!" });
   } catch (error) {
     res.json(error);
@@ -64,36 +70,29 @@ const registerVehicle = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { Id_No } = req.params;
-  const { name, email, role } = req.body;
-  let { password } = req.body;
-  const profilePic = req.file ? req.file.path : null; // Assuming you handle file uploads
-
   try {
-    // Find the user by ID
+    const updateProfilePic = req.file ? req.file.path : undefined;
+
+    const { Id_No } = req.params;
+    const { name, email, role, password } = req.body;
     const user = await EmployeeModel.findOne({ Id_No: Id_No });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
-    // Update the fields if they exist in the request
     if (name) user.name = name;
     if (email) user.email = email;
     if (role) user.role = role;
     if (password) {
-      // Hash the password before saving
-      password = await bcrypt.hash(password, 10);
-      user.password = password;
+      let newPassword = password;
+      let hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
     }
-    if (profilePic) user.profilePic = profilePic;
+    if (updateProfilePic) user.profilePic = updateProfilePic;
 
-    // Save the updated user
     await user.save();
-
     res.status(200).json({ message: "User updated successfully", user });
   } catch (error) {
-    console.error("Error updating user:", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: error.message });
   }
 };
 

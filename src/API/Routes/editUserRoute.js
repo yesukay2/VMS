@@ -33,8 +33,12 @@ const storage = multer.diskStorage({
     );
   },
 });
-const upload = multer({ storage: storage });
+const uploadUpdate = multer({ storage: storage });
 
-router.put("/update-user/:Id_No", upload.single("profilePic"), updateUser);
+router.put(
+  "/update-user/:Id_No",
+  uploadUpdate.single("profilePic"),
+  updateUser
+);
 
 export default router;
