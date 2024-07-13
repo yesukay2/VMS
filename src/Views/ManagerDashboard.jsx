@@ -36,6 +36,11 @@ export default function ManagerDashboard() {
     getData();
   }, [manageExeatData]);
 
+  // useEffect(() => {
+  //   const showBrowserNotification = () => {
+
+  //   }
+  // }, [manageExeatData]);
   const updateStatus = async (id, status) => {
     try {
       await axios.put(`http://localhost:3000/vms/manager/update-status/${id}`, {
@@ -52,6 +57,7 @@ export default function ManagerDashboard() {
     ).profilePic;
     return picUrl;
   };
+
   return (
     <>
       {requireAuth() ? (
@@ -75,9 +81,8 @@ export default function ManagerDashboard() {
                       vehicle_no={exeat.vehicle_no}
                       driver_name={exeat.driver_name}
                       profilePic={
-                        `http://localhost:3000/${findDriverPic(
-                          exeat.driver_id
-                        )}` || "src/assets/avatar/avatar4.jpg"
+                        `${findDriverPic(exeat.driver_id)}` ||
+                        "src/assets/avatar/avatar4.jpg"
                       }
                       time_logged={exeat.time_logged}
                       destination={exeat.destination}

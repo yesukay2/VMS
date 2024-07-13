@@ -325,6 +325,13 @@ body {
     align-items: center;
 }
 
+.vehicle-filter:hover {
+    background: #7c858cb8;
+    color: var(--white);
+    cursor: pointer;
+}
+
+
 /* Security Page */
 .timeOut-btn {
     background: var(--orange);

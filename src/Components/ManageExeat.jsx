@@ -59,7 +59,7 @@ export default function ManageExeat({
         <div className="d-flex flex-row align-items-center exeat">
           <div className="">
             <img
-              src={profilePic}
+              src={`http://localhost:3000/${profilePic}`}
               alt="Profile Picture"
               className=" profile-picture img-fluid rounded-circle"
             />
