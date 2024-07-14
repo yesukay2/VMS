@@ -4,9 +4,23 @@ import PropTypes from "prop-types";
 export default function AdminVehicleInfo({
   vehicleNumber,
   status,
-  driverName,
-  parkingLot,
+  vehicle_type,
+  parking_lot,
+  editVehicle,
+  deleteVehicle,
 }) {
+  const confirmDelete = () => {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${vehicleNumber}?`
+    );
+    if (confirmed) {
+      deleteVehicleHandler();
+    }
+  };
+
+  const deleteVehicleHandler = () => {
+    deleteVehicle(vehicleNumber);
+  };
   return (
     <div>
       <div
@@ -36,17 +50,25 @@ export default function AdminVehicleInfo({
           </div>
         )}
         <p style={{ width: "25%" }} className="vehicle-info">
-          {driverName}
+          {vehicle_type}
         </p>
         <p style={{ width: "25%" }} className="vehicle-info">
-          {parkingLot}
+          {parking_lot}
         </p>
         <div style={{ width: "25%" }}>
           <div className="d-flex flex-row gap-2">
-            <div style={{ width: "fit-content" }} className="edit-btn ">
+            <div
+              style={{ width: "fit-content", cursor: "pointer" }}
+              className="edit-btn "
+              onClick={() => editVehicle(vehicleNumber)}
+            >
               Edit
             </div>
-            <div style={{ width: "fit-content" }} className="delete-btn">
+            <div
+              style={{ width: "fit-content", cursor: "pointer" }}
+              className="delete-btn"
+              onClick={confirmDelete}
+            >
               Delete
             </div>
           </div>
@@ -63,6 +85,8 @@ export default function AdminVehicleInfo({
 AdminVehicleInfo.propTypes = {
   vehicleNumber: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  driverName: PropTypes.string.isRequired,
-  parkingLot: PropTypes.string.isRequired,
+  vehicle_type: PropTypes.string.isRequired,
+  parking_lot: PropTypes.string.isRequired,
+  editVehicle: PropTypes.func,
+  deleteVehicle: PropTypes.func,
 };

@@ -51,6 +51,7 @@ export default function ExeatsPage() {
     } catch (error) {
       console.log(error);
     }
+    return timeOut;
   };
   const recordTimeIn = async (id, timeIn) => {
     try {
@@ -64,6 +65,7 @@ export default function ExeatsPage() {
     } catch (error) {
       console.log(error);
     }
+    return timeIn;
   };
 
   const resolveExeat = async (id, status) => {

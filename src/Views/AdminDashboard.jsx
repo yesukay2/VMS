@@ -6,6 +6,7 @@ import RequestExeat from "./RequestExeat";
 import ManagerDashboard from "./ManagerDashboard";
 import AdminVehiclesPage from "./AdminVehiclesPage";
 import RegisterUser from "./RegisterUser";
+import Users from "./Users";
 import { Navigate } from "react-router-dom";
 
 const requireAuth = () => {
@@ -35,6 +36,8 @@ export default function AdminDashboard() {
       return <AdminVehiclesPage />;
     } else if (activeTab === "registerVehicle") {
       return <RegisterVehicle />;
+    } else if (activeTab === "employees") {
+      return <Users />;
     }
   };
 
@@ -48,7 +51,7 @@ export default function AdminDashboard() {
               style={{
                 minHeight: "100%",
                 width: "250px",
-                // overflow: "scroll",
+                overflow: "scroll",
                 background: "var(--grey)",
                 position: "fixed",
                 padding: "1.5rem",
@@ -74,6 +77,27 @@ export default function AdminDashboard() {
               </div>
 
               <div className="admin-dash-nav d-flex flex-column align-items-center justify-content-center gap-3">
+                <hr
+                  className="w-100"
+                  style={{
+                    color: "var(--orange)",
+                    marginTop: "0",
+                    marginBottom: "0",
+                  }}
+                ></hr>
+                <a
+                  href="#"
+                  onClick={() => {
+                    setActiveTab("vehicles");
+                    renderActiveTab();
+                  }}
+                  className={`sideNav ${
+                    activeTab == "vehicles" ? "sideNav-active" : ""
+                  }`}
+                  id="vehicles"
+                >
+                  Vehicles
+                </a>
                 <hr
                   className="w-100"
                   style={{
@@ -145,7 +169,7 @@ export default function AdminDashboard() {
                     marginBottom: "0",
                   }}
                 ></hr>
-                <a
+                {/* <a
                   href="#"
                   onClick={() => {
                     setActiveTab("approveExeat");
@@ -157,6 +181,27 @@ export default function AdminDashboard() {
                   id="approvedExeat"
                 >
                   Approved Exeat
+                </a>
+                <hr
+                  className="w-100"
+                  style={{
+                    color: "var(--orange)",
+                    marginTop: "0",
+                    marginBottom: "0",
+                  }}
+                ></hr> */}
+                <a
+                  href="#"
+                  onClick={() => {
+                    setActiveTab("employees");
+                    renderActiveTab();
+                  }}
+                  className={`sideNav ${
+                    activeTab == "employees" ? "sideNav-active" : ""
+                  }`}
+                  id="employees"
+                >
+                  Employees
                 </a>
                 <hr
                   className="w-100"

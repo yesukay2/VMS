@@ -14,6 +14,7 @@ import VehiclesPage from "./Views/VehiclesPage";
 import RegisterUser from "./Views/RegisterUser";
 import EditUserPage from "./Views/EditUserPage";
 import Users from "./Views/Users";
+import EditVehicle from "./Views/EditVehiclePage";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "edit-user/:Id_No",
         element: <EditUserPage />,
+      },
+      {
+        path: "edit-vehicle/:vehicleNumber",
+        element: <EditVehicle />,
       },
     ],
   },

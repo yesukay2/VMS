@@ -96,6 +96,36 @@ const updateUser = async (req, res) => {
   }
 };
 
+const updateVehicle = async (req, res) => {
+  try {
+    const {
+      vehicle_type,
+      make,
+      model,
+      make_year,
+      reg_no,
+      chassis_no,
+      color,
+      parking_lot,
+    } = req.body;
+    const vehicle = await VehicleModel.findOneAndUpdate({ reg_no: reg_no });
+    if (!vehicle) {
+      return res.status(404).json({ message: "Vehicle not found" });
+    }
+    if (vehicle_type) vehicle.vehicle_type = vehicle_type;
+    if (make) vehicle.make = make;
+    if (model) vehicle.model = model;
+    if (make_year) vehicle.make_year = make_year;
+    if (reg_no) vehicle.reg_no = reg_no;
+    if (chassis_no) vehicle.chassis_no = chassis_no;
+    if (color) vehicle.color = color;
+    if (parking_lot) vehicle.parking_lot = parking_lot;
+    await vehicle.save();
+    res.status(200).json({ message: "Vehicle updated successfully", vehicle });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 const deleteUser = async (req, res) => {
   try {
     const { Id_No } = req.params;
@@ -119,4 +149,38 @@ const getUser = async (req, res) => {
     res.json(error.message);
   }
 };
-export { registerEmployee, registerVehicle, updateUser, deleteUser, getUser };
+
+const getVehicle = async (req, res) => {
+  try {
+    const { reg_no } = req.params;
+    const vehicle = await VehicleModel.findOne({ vehicleNumber: reg_no });
+    // console.log(vehicle);
+    res.status(200).json(vehicle);
+  } catch (error) {
+    res.json(error.message);
+  }
+};
+
+const deleteVehicle = async (req, res) => {
+  try {
+    const { reg_no } = req.params;
+    const vehicle = await VehicleModel.findOne({ vehicleNumber: reg_no });
+    vehicle == null
+      ? res.status(404).json({ message: "Vehicle Not Found!" })
+      : await VehicleModel.deleteOne({ vehicleNumber: reg_no }).then(() =>
+          res.status(200).json({ message: "Vehicle Deleted!" })
+        );
+  } catch (error) {
+    res.json(error);
+  }
+};
+export {
+  registerEmployee,
+  registerVehicle,
+  updateVehicle,
+  updateUser,
+  deleteUser,
+  getUser,
+  getVehicle,
+  deleteVehicle,
+};

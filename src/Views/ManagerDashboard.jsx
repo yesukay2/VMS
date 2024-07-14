@@ -80,10 +80,7 @@ export default function ManagerDashboard() {
                       key={exeat._id}
                       vehicle_no={exeat.vehicle_no}
                       driver_name={exeat.driver_name}
-                      profilePic={
-                        `${findDriverPic(exeat.driver_id)}` ||
-                        "src/assets/avatar/avatar4.jpg"
-                      }
+                      profilePic={`${findDriverPic(exeat.driver_id)}`}
                       time_logged={exeat.time_logged}
                       destination={exeat.destination}
                       purpose={exeat.purpose}

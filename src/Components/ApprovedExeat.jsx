@@ -15,7 +15,7 @@ export default function ApprovedExeat({
   recordTimeOut,
   timeInStatus,
   timeOutStatus,
-  resolve,
+  // resolve,
 }) {
   try {
     axios.get();
@@ -158,13 +158,13 @@ export default function ApprovedExeat({
           </div>
         </div>
         <div className="justify-content-between">
-          <button
+          {/* <button
             className="btn resolve-btn"
             onClick={() => resolve(id, "Resolved")}
             disabled={timeInStatus == "00:00" || timeOutStatus == "00:00"}
           >
             Resolve
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
@@ -179,9 +179,9 @@ ApprovedExeat.propTypes = {
   time_logged: PropTypes.string.isRequired,
   destination: PropTypes.string.isRequired,
   accomp_staff_name: PropTypes.string.isRequired,
-  recordTimeIn: PropTypes.func,
-  recordTimeOut: PropTypes.func,
+  recordTimeIn: PropTypes.any,
+  recordTimeOut: PropTypes.any,
   timeInStatus: PropTypes.string,
   timeOutStatus: PropTypes.string,
-  resolve: PropTypes.func,
+  // resolve: PropTypes.func,
 };
