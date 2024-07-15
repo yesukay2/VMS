@@ -34,7 +34,7 @@ export default function ManagerDashboard() {
     };
 
     getData();
-  }, [manageExeatData]);
+  }, [manageExeatData, employeeData]);
 
   // useEffect(() => {
   //   const showBrowserNotification = () => {

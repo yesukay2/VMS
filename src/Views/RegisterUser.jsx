@@ -116,6 +116,24 @@ export default function RegisterUser() {
               onSubmit={formik.handleSubmit}
               encType="multipart/form-data"
             >
+              <select
+                className="formInput form-control"
+                name="role"
+                id="role"
+                // defaultValue="select"
+                {...formik.getFieldProps("role")}
+              >
+                <option value="">Select Role</option>
+                <option value="Admin">Admin</option>
+                <option value="Staff">Staff</option>
+                <option value="Manager">Manager</option>
+                <option value="Receptionist">Receptionist</option>
+                <option value="Security">Security</option>
+              </select>
+
+              {formik.touched.role && formik.errors.role ? (
+                <small className="error-message">{formik.errors.role}</small>
+              ) : null}
               <input
                 type="text"
                 name="Id_No"
@@ -136,17 +154,6 @@ export default function RegisterUser() {
               />
               {formik.touched.name && formik.errors.name ? (
                 <small className="error-message">{formik.errors.name}</small>
-              ) : null}
-
-              <input
-                type="text"
-                name="role"
-                className="form-control formInput"
-                placeholder="Role"
-                {...formik.getFieldProps("role")}
-              />
-              {formik.touched.role && formik.errors.role ? (
-                <small className="error-message">{formik.errors.role}</small>
               ) : null}
 
               <input

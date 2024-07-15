@@ -13,6 +13,7 @@ export default function Exeat({
   driverId,
   vehicleNo,
   driverName,
+  profilePic,
   accompStaffName,
   accompStaffId,
   destination,
@@ -38,6 +39,17 @@ export default function Exeat({
             <FaRegDotCircle />
           </span>
         </div>
+        <img
+          src={`http://localhost:3000/${profilePic}`}
+          alt="profilePic"
+          className="profilePic mb-3 img-fluid rounded-circle align-self-center"
+          style={{
+            borderRadius: "5%",
+            width: "10rem",
+            height: "10rem",
+            objectFit: "cover",
+          }}
+        />
         <div className="exeat-info">
           <div className="">
             <span className="exeat-icon">

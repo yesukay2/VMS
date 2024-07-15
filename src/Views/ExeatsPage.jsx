@@ -15,6 +15,8 @@ const requireAuth = () => {
 
 export default function ExeatsPage() {
   const [requestData, setRequestData] = useState([]);
+  const [employeeData, setEmployeeData] = useState([]);
+
   try {
     useEffect(() => {
       const getExeats = async () =>
@@ -22,11 +24,21 @@ export default function ExeatsPage() {
           return setRequestData(res.data);
         });
 
+      axios.get("http://localhost:3000/vms/employees").then((res) => {
+        setEmployeeData(res.data);
+      });
       getExeats();
-    }, [requestData]);
+    }, [requestData, employeeData]);
   } catch (error) {
     console.log(error);
   }
+
+  const findDriverPic = (id) => {
+    const picUrl = employeeData.find(
+      (employee) => employee.Id_No == id
+    ).profilePic;
+    return picUrl;
+  };
 
   return (
     <>
@@ -50,6 +62,7 @@ export default function ExeatsPage() {
                   vehicleNo={exeat.vehicle_no}
                   driverId={exeat.driver_id}
                   driverName={exeat.driver_name}
+                  profilePic={`${findDriverPic(exeat.driver_id)}`}
                   accompStaffId={exeat.accomp_staff_id}
                   accompStaffName={exeat.accomp_staff_name}
                   destination={exeat.destination}
