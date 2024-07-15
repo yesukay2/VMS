@@ -2,16 +2,7 @@ import "../App.css";
 import logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { BsPersonLock } from "react-icons/bs";
-// import jwt_decode from "jwt-decode";
 
-// var role = "";
-// const token = localStorage.getItem("token");
-// try {
-//   const decoded = jwt_decode(token);
-//   role = decoded.role;
-// } catch (error) {
-//   console.log(error);
-// }
 export default function Header() {
   const navigate = useNavigate();
   const logout = () => {

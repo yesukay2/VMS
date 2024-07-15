@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import process from "process";
 
 const checkUserAuth = (req, res, next) => {
-  console.log("tryyyyyyyyy");
   try {
     const JWT_SECRET = process.env.JWT_SECRET;
     const tokenCheck = req.headers.authorization;
@@ -15,10 +14,8 @@ const checkUserAuth = (req, res, next) => {
 
     const decoded = jwt.verify(token, JWT_SECRET);
 
-    console.log(`Decoded token:`, decoded);
     req.user = decoded;
 
-    console.log("Middleware");
     res.status(200).json(req.user);
     next();
   } catch (error) {

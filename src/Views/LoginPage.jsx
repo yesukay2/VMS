@@ -40,7 +40,7 @@ export default function LoginPage() {
           }
         });
     } catch (error) {
-      console.log(error);
+      
       if (error.response) {
         document.getElementById("badgeNotification").innerHTML =
           error.response.data.message;

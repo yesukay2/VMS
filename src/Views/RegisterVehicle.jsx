@@ -52,7 +52,7 @@ export default function RegisterVehicle() {
         formik.resetForm();
       }
     } catch (error) {
-      console.log(error);
+      error;
       const badgeNotification = document.getElementById("badgeNotification");
       if (error.response.status == 400) {
         badgeNotification.innerHTML = "Bad Request";

@@ -41,13 +41,12 @@ export default function ExeatsPage() {
 
   const recordTimeOut = async (id, timeOut) => {
     try {
-      await axios
-        .put(`http://localhost:3000/vms/checkpoint/record-timeOut/${id}`, {
+      await axios.put(
+        `http://localhost:3000/vms/checkpoint/record-timeOut/${id}`,
+        {
           timeOut,
-        })
-        .then((res) => {
-          console.log(res);
-        });
+        }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -70,13 +69,12 @@ export default function ExeatsPage() {
 
   const resolveExeat = async (id, status) => {
     try {
-      await axios
-        .put(`http://localhost:3000/vms/checkpoint/resolve-exeat/${id}`, {
+      await axios.put(
+        `http://localhost:3000/vms/checkpoint/resolve-exeat/${id}`,
+        {
           status,
-        })
-        .then((res) => {
-          console.log(res);
-        });
+        }
+      );
     } catch (error) {
       console.log(error);
     }

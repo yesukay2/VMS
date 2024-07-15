@@ -43,7 +43,6 @@ export default function EditVehicle() {
       axios
         .get(`http://localhost:3000/vms/vehicle/get-vehicle/${reg_no}`)
         .then((res) => {
-          // console.log(res.data);
           formik.setValues({
             ...res.data,
           });

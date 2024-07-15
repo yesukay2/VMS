@@ -21,7 +21,6 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("vehicles");
 
   const renderActiveTab = () => {
-    console.log(activeTab);
     if (activeTab === "registerUser") {
       return <RegisterUser />;
     } else if (activeTab === "manageExeat") {

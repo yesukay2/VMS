@@ -123,9 +123,9 @@ export default function ManagerDashboard() {
     if (Notification.permission !== "granted") {
       Notification.requestPermission().then((permission) => {
         if (permission === "granted") {
-          console.log("Notification permission granted.");
+          ("Notification permission granted.");
         } else {
-          console.log("Notification permission denied.");
+          ("Notification permission denied.");
         }
       });
     } else {
@@ -147,7 +147,7 @@ export default function ManagerDashboard() {
         );
         setEmployeeData(employeeRes.data);
       } catch (error) {
-        console.log(error);
+        error;
       }
     };
 
@@ -178,10 +178,9 @@ export default function ManagerDashboard() {
   };
 
   const findDriverPic = (id) => {
-    const picUrl = employeeData.find(
-      (employee) => employee.Id_No == id
-    ).profilePic;
-    return picUrl;
+    const employee = employeeData.find((employee) => employee.Id_No == id);
+    const picUrl = employee ? employee.profilePic : "public/avatar4.jpg";
+    return `http://localhost:3000/${picUrl}`;
   };
 
   return (

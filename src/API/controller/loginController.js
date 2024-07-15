@@ -6,7 +6,7 @@ import process from "process";
 const login = async (req, res) => {
   const JWT_SECRET = process.env.JWT_SECRET;
   const { email, password } = req.body;
-  console.log(req.body);
+
   try {
     const existingUser = await EmployeeModel.findOne({
       email,
@@ -14,7 +14,6 @@ const login = async (req, res) => {
     const passwordMatch = existingUser
       ? await bcrypt.compare(password, existingUser.password)
       : false;
-    console.log(existingUser, passwordMatch);
 
     if (existingUser && passwordMatch) {
       const token = jwt.sign(

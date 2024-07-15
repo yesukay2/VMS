@@ -154,7 +154,7 @@ const getVehicle = async (req, res) => {
   try {
     const { reg_no } = req.params;
     const vehicle = await VehicleModel.findOne({ vehicleNumber: reg_no });
-    // console.log(vehicle);
+
     res.status(200).json(vehicle);
   } catch (error) {
     res.json(error.message);
