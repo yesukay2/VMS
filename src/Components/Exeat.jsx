@@ -63,7 +63,7 @@ export default function Exeat({
             <span className="exeat-icon">
               <MdOutlineAccessTime />{" "}
             </span>
-            {timeLogged.substring(0, 10) + " " + timeLogged.substring(11, 16)}
+            {timeLogged.substring(0, 10) + " " + timeLogged.substring(11, 20)}
           </div>
         </div>
         <div className="exeat-info">

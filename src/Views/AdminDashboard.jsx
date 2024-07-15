@@ -48,10 +48,11 @@ export default function AdminDashboard() {
           <div className="d-flex flex-row">
             <div
               className="col-4"
+              id="admin-dash-side-nav"
               style={{
-                minHeight: "100%",
+                maxHeight: "100vh",
                 width: "250px",
-                overflow: "scroll",
+                overflowY: "auto",
                 background: "var(--grey)",
                 position: "fixed",
                 padding: "1.5rem",
@@ -76,7 +77,7 @@ export default function AdminDashboard() {
                 </h6>
               </div>
 
-              <div className="admin-dash-nav d-flex flex-column align-items-center justify-content-center gap-3">
+              <div className="admin-dash-nav d-flex flex-column align-items-center justify-content-center gap-3 overflow-scroll">
                 <hr
                   className="w-100"
                   style={{
@@ -221,6 +222,7 @@ export default function AdminDashboard() {
                     activeTab == "registerUser" ? "sideNav-active" : ""
                   }`}
                   id="approvedExeat"
+                  style={{ marginBottom: "5rem" }}
                 >
                   Add User
                 </a>
@@ -239,9 +241,10 @@ export default function AdminDashboard() {
               className="col-8"
               style={{
                 marginLeft: "250px",
-                height: "100vh",
+                height: "calc(100vh - 50px)",
                 width: "calc(100% - 250px)",
                 padding: "1.5rem",
+                overflowY: "auto",
               }}
             >
               <div

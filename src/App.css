@@ -138,14 +138,26 @@ body {
 /* footer */
 
 .footer {
-    z-index: 999999;
+
     background: var(--white);
     border-top: 0.1px solid var(--grey);
     padding: 1rem;
 
+
+}
+
+footer {
+    height: 50px;
+    position: fixed;
     bottom: 0;
-    left: 0;
-    width: 100%;
+    width: calc(100% - 250px);
+    /* Adjust for sidebar width */
+    left: 250px;
+    /* Position it next to the sidebar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid var(--deep-orange);
 }
 
 
@@ -452,6 +464,13 @@ body {
     border-radius: 0.3rem;
     font-size: 0.75rem;
     align-items: center;
+
+}
+
+#adminContent {
+    flex: 1;
+    padding-bottom: 50px;
+    overflow-y: auto;
 
 }
 

@@ -115,6 +115,7 @@ export default function RegisterUser() {
               className="mb-3 text-center"
               onSubmit={formik.handleSubmit}
               encType="multipart/form-data"
+              style={{ height: "100%", overflow: "auto" }}
             >
               <select
                 className="formInput form-control"
@@ -218,7 +219,7 @@ export default function RegisterUser() {
 
               <button
                 className="btn mb-4 align-text-center submit-btn-green"
-                style={{ fontSize: "0.8rem" }}
+                style={{ fontSize: "0.8rem", marginBottom: "5rem" }}
                 type="submit"
                 disabled={formik.isSubmitting}
               >

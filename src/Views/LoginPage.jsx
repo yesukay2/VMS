@@ -27,7 +27,7 @@ export default function LoginPage() {
 
           const role = res.data.user.role.toLowerCase();
 
-          if (role == "secretary") {
+          if (role == "receptionist") {
             navigate("/request-exeat", { replace: true });
           } else if (role == "admin") {
             navigate("/admin-dashboard", { replace: true });
