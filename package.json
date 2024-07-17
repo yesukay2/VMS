@@ -1,9 +1,12 @@
 {
+  "homepage": "http://yesukay2.github.io/vms",
   "name": "vehicle-management-system-vms-",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
@@ -15,6 +18,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.3",
     "formik": "^2.4.5",
+    "gh-pages": "^6.1.1",
     "jquery": "^3.7.1",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
