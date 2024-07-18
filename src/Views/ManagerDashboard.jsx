@@ -1,108 +1,8 @@
-// import React from "react";
-// import "../App.css";
-// import { useState, useEffect } from "react";
-// import ManageExeat from "../Components/ManageExeat.jsx";
-// import { Navigate } from "react-router-dom";
-// import axios from "axios";
-
-// const requireAuth = () => {
-//   const token = localStorage.getItem("token");
-//   if (!token) {
-//     return false;
-//   }
-//   return true;
-// };
-
-// export default function ManagerDashboard() {
-//   const [manageExeatData, setManageExeatData] = useState([]);
-//   const [employeeData, setEmployeeData] = useState([]);
-
-//   useEffect(() => {
-//     const getData = () => {
-//       try {
-//         axios
-//           .get("http://localhost:3000/vms/manager/manage-requests")
-//           .then((res) => {
-//             setManageExeatData(res.data);
-//           });
-//         axios.get("http://localhost:3000/vms/employees").then((res) => {
-//           setEmployeeData(res.data);
-//         });
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     };
-
-//     getData();
-//   }, [manageExeatData, employeeData]);
-
-//   // useEffect(() => {
-//   //   const showBrowserNotification = () => {
-
-//   //   }
-//   // }, [manageExeatData]);
-//   const updateStatus = async (id, status) => {
-//     try {
-//       await axios.put(`http://localhost:3000/vms/manager/update-status/${id}`, {
-//         status,
-//       });
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-
-//   const findDriverPic = (id) => {
-//     const picUrl = employeeData.find(
-//       (employee) => employee.Id_No == id
-//     ).profilePic;
-//     return picUrl;
-//   };
-
-//   return (
-//     <>
-//       {requireAuth() ? (
-//         <>
-//           <div className="error-notification" id="badgeNotification"></div>
-//           <div className="container body-wrapper">
-//             <h4 className="page-title d-flex justify-content-center align-items-center mt-5">
-//               Manager Dashboard
-//             </h4>
-//             <h5 className="time-title mt-5">Logged Exeats</h5>
-//             <ul className="list-group list-unstyled" id="exeat-list">
-//               {manageExeatData.length === 0 && (
-//                 <div className="text-center">No Exeats Logged!</div>
-//               )}
-//               {manageExeatData.length > 0 &&
-//                 manageExeatData.map((exeat) => {
-//                   return (
-//                     <ManageExeat
-//                       id={exeat._id}
-//                       key={exeat._id}
-//                       vehicle_no={exeat.vehicle_no}
-//                       driver_name={exeat.driver_name}
-//                       profilePic={`${findDriverPic(exeat.driver_id)}`}
-//                       time_logged={exeat.time_logged}
-//                       destination={exeat.destination}
-//                       purpose={exeat.purpose}
-//                       accomp_staff_name={exeat.accomp_staff_name}
-//                       updateStatus={updateStatus}
-//                     />
-//                   );
-//                 })}
-//             </ul>
-//           </div>
-//         </>
-//       ) : (
-//         <Navigate to="/" />
-//       )}
-//     </>
-//   );
-// }
-
 import "../App.css";
 import { useState, useEffect } from "react";
 import ManageExeat from "../Components/ManageExeat.jsx";
 import { Navigate } from "react-router-dom";
+
 import axios from "axios";
 
 const requireAuth = () => {
@@ -113,29 +13,91 @@ const requireAuth = () => {
   return true;
 };
 
+const PUBLIC_VAPID_KEY =
+  "BPi0KkQXj_Mdy3UaAghv6g3f8qoE1seZnr44CLFelwabDUcWNPsmy9TqFs5z-sOKoUO1qkz_cxVizDxCYNXcVCQ";
+
+// const PRIVATE_VAPID_KEY = "p--tfWRT3ChCmerXa_bEGp_0_6C9nwh2fwwkyGHWEtM";
+
 export default function ManagerDashboard() {
   const [manageExeatData, setManageExeatData] = useState([]);
   const [employeeData, setEmployeeData] = useState([]);
-  const [prevDataLength, setPrevDataLength] = useState(0); // To keep track of previous data length
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  // const [prevDataLength, setPrevDataLength] = useState(0); // To keep track of previous data length
 
-  // Function to request notification permission
-  const requestNotificationPermission = () => {
-    if (Notification.permission !== "granted") {
-      Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-          ("Notification permission granted.");
-        } else {
-          ("Notification permission denied.");
-        }
+  useEffect(() => {
+    const checkSubscription = async () => {
+      try {
+        const registration = await navigator.serviceWorker.ready;
+        const subscription = await registration.pushManager.getSubscription();
+        setIsSubscribed(!!subscription);
+      } catch (error) {
+        console.error("Error checking subscription:", error);
+      }
+    };
+
+    checkSubscription();
+  }, []);
+
+  const requestNotificationPermission = async () => {
+    if (!("Notification" in window) || !("serviceWorker" in navigator)) {
+      console.error(
+        "Notifications or Service Workers are not supported in this browser."
+      );
+      return;
+    }
+
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission !== "granted") {
+        console.error("Notification permission not granted.");
+        return;
+      }
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then((registration) => {
+            console.log(
+              "Service Worker registered with scope:",
+              registration.scope
+            );
+          })
+          .catch((error) => {
+            console.error("Service Worker registration failed:", error);
+          });
+      }
+      const registration = await navigator.serviceWorker.ready;
+      const subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY), // Convert VAPID key
       });
-    } else {
-      // console.log("Notification permission already granted.");
+
+      await axios.post(
+        "http://localhost:3000/vms/subscribe/store-subscription",
+        { subscription }
+      );
+      setIsSubscribed(true);
+    } catch (error) {
+      console.error("Failed to subscribe the user: ", error);
     }
   };
 
-  useEffect(() => {
-    requestNotificationPermission();
+  // Convert VAPID key to Uint8Array
+  function urlBase64ToUint8Array(base64String) {
+    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding)
+      .replace(/-/g, "+")
+      .replace(/_/g, "/");
 
+    const rawData = atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  }
+
+  useEffect(() => {
     const getData = async () => {
       try {
         const exeatRes = await axios.get(
@@ -153,19 +115,6 @@ export default function ManagerDashboard() {
 
     getData();
   }, [manageExeatData, employeeData]);
-
-  useEffect(() => {
-    // Show a notification if new data is added
-    if (manageExeatData.length > prevDataLength) {
-      if (Notification.permission === "granted") {
-        new Notification("New request added", {
-          body: "A new request has been added to the system.",
-          icon: "path/to/your/icon.png", // Provide the path to your icon
-        });
-      }
-      setPrevDataLength(manageExeatData.length);
-    }
-  }, [manageExeatData, prevDataLength]);
 
   const updateStatus = async (id, status) => {
     try {
@@ -192,6 +141,17 @@ export default function ManagerDashboard() {
             <h4 className="page-title d-flex justify-content-center align-items-center mt-5">
               Manager Dashboard
             </h4>
+            <div className="notification">
+              <button
+                className="enableNotification"
+                onClick={requestNotificationPermission}
+                style={{
+                  display: isSubscribed ? "none" : "block",
+                }}
+              >
+                Enable Notification
+              </button>
+            </div>
             <h5 className="time-title mt-5">Logged Exeats</h5>
             <ul className="list-group list-unstyled" id="exeat-list">
               {manageExeatData.length === 0 && (

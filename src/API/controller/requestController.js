@@ -1,4 +1,5 @@
 import ExeatModel from "../Models/ExeatRequest.js";
+import notifyManagers from "../index.js";
 
 const formatDate = () => {
   const date = new Date();
@@ -42,6 +43,8 @@ const requestExeat = async (req, res) => {
       time_approved: "00:00",
       time_declined: "00:00",
     });
+
+    notifyManagers();
 
     await newExeat.save();
     res.json({ message: "New Exeat Created!", newExeat });
