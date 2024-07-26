@@ -4,11 +4,7 @@ import { useFormik } from "formik";
 import { useNavigate, Navigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
-
-const requireAuth = () => {
-  const token = localStorage.getItem("token");
-  return !!token;
-};
+import protectedRoute from "../Utility/ProtectedRoute";
 
 const initialValues = {
   Id_No: "",
@@ -158,7 +154,7 @@ export default function EditUser() {
 
   return (
     <>
-      {requireAuth() ? (
+      {protectedRoute("Admin") ? (
         <>
           <div className="error-notification" id="badgeNotification"></div>
           <div

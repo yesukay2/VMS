@@ -28,10 +28,11 @@ const recordTimeOut = async (req, res) => {
 const recordTimeIn = async (req, res) => {
   try {
     const { id } = req.params;
-    const { timeIn } = req.body;
+    const { timeIn, status } = req.body;
 
     await ExeatModel.findByIdAndUpdate(id, {
       time_in: timeIn,
+      status: status,
     });
   } catch (error) {
     res.json(error.message);

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200&family=Playfair+Display:ital@1&family=Poppins:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalnia+Glaze:wght@100..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Oswald:wght@200..700&display=swap');
 
 
 /* general variables */
@@ -19,7 +19,7 @@
 }
 
 body {
-    font-family: 'Playfair Display', sans-serif;
+    font-family: "Lora", serif;
     background: var(--white);
     color: var(--black);
     font-size: 1rem;
@@ -378,7 +378,6 @@ footer {
     border-radius: 0.3rem;
     font-size: 0.75rem;
     align-items: center;
-    disabled: true;
     opacity: 0.5;
 }
 
@@ -491,6 +490,7 @@ footer {
 
 .user-info {
     width: 15rem;
+    height: 15rem;
     margin-left: 1rem;
     margin-bottom: 1rem;
 }
@@ -500,9 +500,20 @@ footer {
     flex-direction: row;
     flex-wrap: wrap;
     margin-bottom: 0%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+
 }
 
 /* Exeat Logged */
+.exeat-card {
+    width: 15rem;
+    height: fit-content;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+
+}
 
 .exeat-icon {
     font-size: 1.3rem;
@@ -515,7 +526,22 @@ footer {
 
 
 /* media queries */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 990px) {
+    .navbar-toggler {
+        display: block;
+        font-size: 1rem;
+        color: var(--dark-grey);
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: right;
+        margin-top: 0.1rem;
+        margin-right: 1.5rem;
+    }
+
     .register-vehicle {
         flex-direction: column;
         justify-content: center;
@@ -581,12 +607,12 @@ footer {
         width: 5rem;
     }
 
-    .exeat-name {
+    /* .exeat-name {
         width: 5rem;
         font-weight: 600;
         font-size: 1rem;
         margin-right: 1rem;
-    }
+    } */
 
     .admin-dash-nav {
         display: flex;

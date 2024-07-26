@@ -4,38 +4,32 @@ import ApprovedExeat from "../Components/ApprovedExeat.jsx";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
-const requireAuth = () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return false;
-  }
-  return true;
-};
+import protectedRoute from "../Utility/ProtectedRoute.js";
+import { Atom } from "react-loading-indicators";
 
 export default function ExeatsPage() {
   const [approvedExeat, setApprovedExeat] = useState([]);
   const [employeeData, setEmployeeData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const getApprovedExeats = async () =>
+  const getApprovedExeats = async () => {
+    try {
       await axios
         .get("http://localhost:3000/vms/checkpoint/security-dashboard")
         .then((res) => {
           return setApprovedExeat(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
         });
-    axios
-      .get("http://localhost:3000/vms/employees")
-      .then((res) => {
-        setEmployeeData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
 
+      await axios.get("http://localhost:3000/vms/employees").then((res) => {
+        setEmployeeData(res.data);
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     getApprovedExeats();
   }, [approvedExeat]);
 
@@ -47,6 +41,7 @@ export default function ExeatsPage() {
           timeOut,
         }
       );
+      getApprovedExeats();
     } catch (error) {
       console.log(error);
     }
@@ -56,80 +51,85 @@ export default function ExeatsPage() {
     try {
       await axios
         .put(`http://localhost:3000/vms/checkpoint/record-timeIn/${id}`, {
-          timeIn,
+          timeIn: timeIn,
+          status: "Resolved",
         })
         .then((res) => {
           console.log(res);
         });
+      getApprovedExeats();
     } catch (error) {
       console.log(error);
     }
     return timeIn;
   };
 
-  const resolveExeat = async (id, status) => {
-    try {
-      await axios.put(
-        `http://localhost:3000/vms/checkpoint/resolve-exeat/${id}`,
-        {
-          status,
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <>
-      {requireAuth() ? (
+      {protectedRoute("Security") || protectedRoute("Admin") ? (
         <div className="container body-wrapper">
           <h4 className="page-title d-flex justify-content-center align-items-center mt-5">
             Approved Exeats Log
           </h4>
-
+          {loading && (
+            <div className="d-flex m-5 justify-content-around align-items-center text-center">
+              <Atom
+                size={50}
+                color="var(--orange)"
+                text="Loading Exeats..."
+                textColor="var(--red)"
+              />
+            </div>
+          )}
           <ul className="list-group list-unstyled" id="exeat-list">
-            {approvedExeat.length === 0 && "No Exeats Logged!"}
-            {approvedExeat.map((exeat) => {
-              const driverPic = employeeData.find(
-                (employee) => employee.Id_No == exeat.driver_id
-              ).profilePic;
-              return (
-                <ApprovedExeat
-                  key={exeat._id}
-                  driver_name={exeat.driver_name}
-                  vehicle_no={exeat.vehicle_no}
-                  accomp_staff_name={exeat.accomp_staff_name}
-                  profilePic={`http://localhost:3000/${driverPic}`}
-                  time_logged={exeat.time_logged}
-                  destination={exeat.destination}
-                  purpose={exeat.purpose}
-                  id={exeat._id}
-                  recordTimeIn={
-                    exeat.time_out != "00:00" &&
-                    exeat.time_in == "00:00" &&
-                    recordTimeIn
-                  }
-                  recordTimeOut={
-                    exeat.time_in == "00:00" &&
-                    exeat.time_out == "00:00" &&
-                    recordTimeOut
-                  }
-                  timeInStatus={
-                    exeat.time_in != "00:00" ? exeat.time_in : "Record Time In"
-                  }
-                  timeOutStatus={
-                    exeat.time_out != "00:00"
-                      ? exeat.time_out
-                      : "Record Time Out"
-                  }
-                  resolve={
-                    exeat.time_out != "00:00" &&
-                    exeat.time_in != "00:00" &&
-                    resolveExeat
-                  }
-                />
-              );
-            })}
+            {approvedExeat.length > 0
+              ? approvedExeat.map((exeat) => {
+                  const findPic = employeeData.find(
+                    (employee) => employee.Id_No == exeat.driver_id
+                  );
+
+                  const driverPic = findPic
+                    ? findPic.profilePic
+                    : "public/avatar4.jpg";
+
+                  return (
+                    <ApprovedExeat
+                      key={exeat._id}
+                      driver_name={exeat.driver_name}
+                      vehicle_no={exeat.vehicle_no}
+                      accomp_staff_name={exeat.accomp_staff_name}
+                      profilePic={`http://localhost:3000/${driverPic}`}
+                      time_logged={exeat.time_logged}
+                      destination={exeat.destination}
+                      purpose={exeat.purpose}
+                      id={exeat._id}
+                      recordTimeIn={
+                        exeat.time_out != "00:00" &&
+                        exeat.time_in == "00:00" &&
+                        recordTimeIn
+                      }
+                      recordTimeOut={
+                        exeat.time_in == "00:00" &&
+                        exeat.time_out == "00:00" &&
+                        recordTimeOut
+                      }
+                      timeInStatus={
+                        exeat.time_in != "00:00"
+                          ? exeat.time_in
+                          : "Record Time In"
+                      }
+                      timeOutStatus={
+                        exeat.time_out != "00:00"
+                          ? exeat.time_out
+                          : "Record Time Out"
+                      }
+                    />
+                  );
+                })
+              : !loading &&
+                approvedExeat.length === 0 && (
+                  <div className="text-center">No Exeats Logged!</div>
+                )}
           </ul>
         </div>
       ) : (

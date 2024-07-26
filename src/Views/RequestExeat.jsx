@@ -10,6 +10,7 @@ import { Navigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { RequestValidation } from "./RequestValidation.jsx";
 import { useState } from "react";
+import protectedRoute from "../Utility/ProtectedRoute.js";
 
 const initialValues = {
   vehicle_no: "",
@@ -22,20 +23,16 @@ const initialValues = {
   signatory: "",
 };
 
-const requireAuth = () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return false;
-  }
-  return true;
-};
-
 export default function RequestExeat() {
   const [StaffData, setStaffData] = useState();
 
-  axios.get("http://localhost:3000/vms/employees").then((res) => {
-    setStaffData(res.data);
-  });
+  try {
+    axios.get("http://localhost:3000/vms/employees").then((res) => {
+      setStaffData(res.data);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -110,7 +107,7 @@ export default function RequestExeat() {
   };
   return (
     <>
-      {requireAuth() ? (
+      {protectedRoute("Receptionist") || protectedRoute("Admin") ? (
         <>
           <div className="error-notification" id="badgeNotification"></div>
           <div className="body-wrapper">

@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { RegisterVehicleValidation } from "./RegisterVehicleValidation.jsx";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import protectedRoute from "../Utility/ProtectedRoute.js";
 
 const initialValues = {
   vehicle_type: "",
@@ -17,16 +18,7 @@ const initialValues = {
   parking_lot: "",
 };
 
-const requireAuth = () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return false;
-  }
-  return true;
-};
-
 export default function EditVehicle() {
-  const navigate = useNavigate();
   const [isInitialized, setIsInitialized] = useState(false);
 
   const { reg_no } = useParams();
@@ -108,7 +100,7 @@ export default function EditVehicle() {
   };
   return (
     <>
-      {requireAuth() ? (
+      {protectedRoute("Admin") ? (
         <>
           <div className="error-notification" id="badgeNotification"></div>
           <div className="body-wrapper">

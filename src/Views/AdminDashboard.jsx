@@ -8,14 +8,7 @@ import AdminVehiclesPage from "./AdminVehiclesPage";
 import RegisterUser from "./RegisterUser";
 import Users from "./Users";
 import { Navigate } from "react-router-dom";
-
-const requireAuth = () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return false;
-  }
-  return true;
-};
+import protectedRoute from "../Utility/ProtectedRoute";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("vehicles");
@@ -42,7 +35,7 @@ export default function AdminDashboard() {
 
   return (
     <>
-      {requireAuth() ? (
+      {protectedRoute("Admin") ? (
         <div>
           <div className="d-flex flex-row">
             <div
@@ -169,27 +162,7 @@ export default function AdminDashboard() {
                     marginBottom: "0",
                   }}
                 ></hr>
-                {/* <a
-                  href="#"
-                  onClick={() => {
-                    setActiveTab("approveExeat");
-                    renderActiveTab();
-                  }}
-                  className={`sideNav ${
-                    activeTab == "approveExeat" ? "sideNav-active" : ""
-                  }`}
-                  id="approvedExeat"
-                >
-                  Approved Exeat
-                </a>
-                <hr
-                  className="w-100"
-                  style={{
-                    color: "var(--orange)",
-                    marginTop: "0",
-                    marginBottom: "0",
-                  }}
-                ></hr> */}
+
                 <a
                   href="#"
                   onClick={() => {
@@ -223,7 +196,7 @@ export default function AdminDashboard() {
                   id="approvedExeat"
                   style={{ marginBottom: "5rem" }}
                 >
-                  Add User
+                  Add Employee
                 </a>
                 <hr
                   className="w-100 mb-5"

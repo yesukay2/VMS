@@ -2,16 +2,9 @@ import "../App.css";
 import { useState, useEffect } from "react";
 import ManageExeat from "../Components/ManageExeat.jsx";
 import { Navigate } from "react-router-dom";
-
+import protectedRoute from "../Utility/ProtectedRoute.js";
 import axios from "axios";
-
-const requireAuth = () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return false;
-  }
-  return true;
-};
+import { Atom } from "react-loading-indicators";
 
 const PUBLIC_VAPID_KEY =
   "BPi0KkQXj_Mdy3UaAghv6g3f8qoE1seZnr44CLFelwabDUcWNPsmy9TqFs5z-sOKoUO1qkz_cxVizDxCYNXcVCQ";
@@ -22,7 +15,7 @@ export default function ManagerDashboard() {
   const [manageExeatData, setManageExeatData] = useState([]);
   const [employeeData, setEmployeeData] = useState([]);
   const [isSubscribed, setIsSubscribed] = useState(false);
-  // const [prevDataLength, setPrevDataLength] = useState(0); // To keep track of previous data length
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkSubscription = async () => {
@@ -110,6 +103,8 @@ export default function ManagerDashboard() {
         setEmployeeData(employeeRes.data);
       } catch (error) {
         error;
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -134,7 +129,7 @@ export default function ManagerDashboard() {
 
   return (
     <>
-      {requireAuth() ? (
+      {protectedRoute("Admin") ? (
         <>
           <div className="error-notification" id="badgeNotification"></div>
           <div className="container body-wrapper">
@@ -153,27 +148,38 @@ export default function ManagerDashboard() {
               </button>
             </div>
             <h5 className="time-title mt-5">Logged Exeats</h5>
+            {loading && (
+              <div className="d-flex justify-content-around align-items-center text-center">
+                <Atom
+                  size={50}
+                  color="var(--orange)"
+                  text="Loading Exeats..."
+                  textColor="var(--red)"
+                />
+              </div>
+            )}
             <ul className="list-group list-unstyled" id="exeat-list">
-              {manageExeatData.length === 0 && (
-                <div className="text-center">No Exeats Logged!</div>
-              )}
-              {manageExeatData.length > 0 &&
-                manageExeatData.map((exeat) => {
-                  return (
-                    <ManageExeat
-                      id={exeat._id}
-                      key={exeat._id}
-                      vehicle_no={exeat.vehicle_no}
-                      driver_name={exeat.driver_name}
-                      profilePic={findDriverPic(exeat.driver_id)}
-                      time_logged={exeat.time_logged}
-                      destination={exeat.destination}
-                      purpose={exeat.purpose}
-                      accomp_staff_name={exeat.accomp_staff_name}
-                      updateStatus={updateStatus}
-                    />
-                  );
-                })}
+              {manageExeatData.length > 0
+                ? manageExeatData.map((exeat) => {
+                    return (
+                      <ManageExeat
+                        id={exeat._id}
+                        key={exeat._id}
+                        vehicle_no={exeat.vehicle_no}
+                        driver_name={exeat.driver_name}
+                        profilePic={findDriverPic(exeat.driver_id)}
+                        time_logged={exeat.time_logged}
+                        destination={exeat.destination}
+                        purpose={exeat.purpose}
+                        accomp_staff_name={exeat.accomp_staff_name}
+                        updateStatus={updateStatus}
+                      />
+                    );
+                  })
+                : !loading &&
+                  manageExeatData.length === 0 && (
+                    <div className="text-center">No Exeats Logged!</div>
+                  )}
             </ul>
           </div>
         </>

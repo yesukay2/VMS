@@ -4,6 +4,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import { RegisterValidation } from "./RegisterValidation.jsx";
 import { Navigate } from "react-router-dom";
+import protectedRoute from "../Utility/ProtectedRoute.js";
 
 const initialValues = {
   Id_No: "",
@@ -13,11 +14,6 @@ const initialValues = {
   confirmPassword: "",
   role: "",
   profilePic: "",
-};
-
-const requireAuth = () => {
-  const token = localStorage.getItem("token");
-  return !!token;
 };
 
 export default function RegisterUser() {
@@ -100,7 +96,7 @@ export default function RegisterUser() {
 
   return (
     <>
-      {requireAuth() ? (
+      {protectedRoute("Admin") ? (
         <>
           <div className="error-notification" id="badgeNotification"></div>
           <div

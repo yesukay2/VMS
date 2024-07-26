@@ -22,7 +22,7 @@ export default function Exeat({
   status,
 }) {
   return (
-    <div className="user-info">
+    <div className="exeat-card">
       <div className="card p-3" style={{ borderColor: "var(--orange)" }}>
         <div className="d-flex justify-content-end align-items-right">
           <span
@@ -30,9 +30,11 @@ export default function Exeat({
               color: `${
                 status == "Pending"
                   ? "gold"
-                  : status == "Approved"
+                  : status == "Approved" || status == "Resolved"
                   ? "green"
-                  : "red"
+                  : status == "Declined" || status == "Rejected"
+                  ? "red"
+                  : "black"
               } `,
             }}
           >
@@ -122,4 +124,5 @@ Exeat.propTypes = {
   driverName: PropTypes.string,
   accompStaffName: PropTypes.string,
   status: PropTypes.string,
+  profilePic: PropTypes.string,
 };

@@ -3,16 +3,15 @@ import "../App.css";
 import UserInfo from "../Components/UserInfo";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import protectedRoute from "../Utility/ProtectedRoute";
+import { Atom } from "react-loading-indicators";
 
-const requireAuth = () => {
-  const token = localStorage.getItem("token");
-  return !!token; // Simplified check for token existence
-};
 const Users = () => {
   const navigate = useNavigate();
 
   const [usersData, setUsers] = useState([]);
   const [editingUserId, setEditingUserId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -21,6 +20,8 @@ const Users = () => {
         setUsers(res.data);
       } catch (error) {
         handleApiError(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchUsers();
@@ -89,33 +90,46 @@ const Users = () => {
 
   return (
     <>
-      {requireAuth() ? (
+      {protectedRoute("Admin") ? (
         <div className="container body-wrapper">
           <h3 className="page-title mb-4 d-flex justify-content-center">
             Employees
           </h3>
           <div className="users">
             <div className="error-notification" id="badgeNotification"></div>
-            {usersData.length === 0 && (
-              <h3 className="d-flex justify-content-center align-items-center flex-column text-center">
-                No Employees Found!
-              </h3>
+
+            {loading && (
+              <div className="d-flex justify-content-center align-items-center  m-5">
+                <Atom
+                  color="#32cd32"
+                  size="medium"
+                  text="Loading Data..."
+                  textColor="red"
+                />
+              </div>
             )}
-            {usersData.map((user, index) => (
-              <UserInfo
-                key={index}
-                fullName={user.name}
-                Id_No={user.Id_No}
-                email={user.email}
-                role={user.role}
-                profilePic={`http://localhost:3000/${user.profilePic}`}
-                deleteUser={deleteUser}
-                editUser={editUser}
-                isEditing={editingUserId === user.Id_No}
-                onSave={saveUserChanges}
-                onCancelEdit={cancelEdit}
-              />
-            ))}
+            {usersData.length > 0
+              ? usersData.map((user, index) => (
+                  <UserInfo
+                    key={index}
+                    fullName={user.name}
+                    Id_No={user.Id_No}
+                    email={user.email}
+                    role={user.role}
+                    profilePic={`http://localhost:3000/${user.profilePic}`}
+                    deleteUser={deleteUser}
+                    editUser={editUser}
+                    isEditing={editingUserId === user.Id_No}
+                    onSave={saveUserChanges}
+                    onCancelEdit={cancelEdit}
+                  />
+                ))
+              : !loading &&
+                usersData.length === 0 && (
+                  <h3 className="d-flex justify-content-center align-items-center flex-column text-center">
+                    No Employees Found!
+                  </h3>
+                )}
           </div>
         </div>
       ) : (

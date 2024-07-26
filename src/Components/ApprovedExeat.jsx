@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 import "../App.css";
-import { useState } from "react";
-import axios from "axios";
 
 export default function ApprovedExeat({
   id,
@@ -15,14 +13,7 @@ export default function ApprovedExeat({
   recordTimeOut,
   timeInStatus,
   timeOutStatus,
-  // resolve,
 }) {
-  try {
-    axios.get();
-  } catch (error) {
-    console.log(error);
-  }
-
   const recordTimeInFunction = () => {
     var date = new Date();
     var hour = date.getHours();
@@ -138,8 +129,13 @@ export default function ApprovedExeat({
           </div>
         </div>
         <div className="d-flex flex-column justify-content-between">
-          <div className="d-flex flex-row align-items-start gap-2">
-            <p className="exeat-info d-inline-block w-30 ">Time Out:</p>
+          <div className="d-flex flex-row align-items-start">
+            <p
+              className="exeat-info d-inline-block w-30"
+              style={{ marginRight: "0.5rem" }}
+            >
+              Time Out:
+            </p>
             <button
               className="btn timeOut-btn mb-3 w-70"
               onClick={() => recordTimeOutFunction()}
@@ -157,15 +153,14 @@ export default function ApprovedExeat({
             </button>
           </div>
         </div>
-        <div className="justify-content-between">
-          {/* <button
+        {/* <div className="justify-content-between"> */}
+        {/* <button
             className="btn resolve-btn"
-            onClick={() => resolve(id, "Resolved")}
             disabled={timeInStatus == "00:00" || timeOutStatus == "00:00"}
           >
             Resolve
           </button> */}
-        </div>
+        {/* </div> */}
       </div>
     </div>
   );
@@ -183,5 +178,4 @@ ApprovedExeat.propTypes = {
   recordTimeOut: PropTypes.any,
   timeInStatus: PropTypes.string,
   timeOutStatus: PropTypes.string,
-  // resolve: PropTypes.func,
 };

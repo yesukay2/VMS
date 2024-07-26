@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { RegisterVehicleValidation } from "./RegisterVehicleValidation.jsx";
 import axios from "axios";
+import protectedRoute from "../Utility/ProtectedRoute.js";
 
 const initialValues = {
   vehicle_type: "",
@@ -16,19 +17,12 @@ const initialValues = {
   parking_lot: "",
 };
 
-const requireAuth = () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return false;
-  }
-  return true;
-};
-
 export default function RegisterVehicle() {
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: RegisterVehicleValidation,
     onSubmit: async (values) => {
+      console.log(values);
       registerVehicle(values);
     },
   });
@@ -97,7 +91,7 @@ export default function RegisterVehicle() {
   };
   return (
     <>
-      {requireAuth() ? (
+      {protectedRoute("Admin") ? (
         <>
           <div className="error-notification" id="badgeNotification"></div>
           <div className="body-wrapper">
