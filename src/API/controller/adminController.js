@@ -48,6 +48,7 @@ const registerVehicle = async (req, res) => {
       chassis_no,
       color,
       parking_lot,
+      assigned_driver_id,
     } = req.body;
     const vehicleExists = await VehicleModel.findOne({ reg_no: reg_no });
 
@@ -61,6 +62,7 @@ const registerVehicle = async (req, res) => {
           chassis_no: chassis_no,
           color: color,
           parking_lot: parking_lot,
+          assigned_driver_id: assigned_driver_id,
           date: formatDate(),
         }).then(() => res.status(200).json({ message: "New Vehicle Created!" }))
       : res.status(409).json({ message: "Vehicle Already Exists!" });

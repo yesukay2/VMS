@@ -15,6 +15,7 @@ const initialValues = {
   chassis_no: "",
   color: "",
   parking_lot: "",
+  assigned_driver_id: "",
 };
 
 export default function RegisterVehicle() {
@@ -242,6 +243,21 @@ export default function RegisterVehicle() {
                       </small>
                     ) : null}
                   </div>
+                </div>
+                <div className="d-flex justify-content-center mb-4">
+                  <input
+                    type="text"
+                    name="assigned_driver_id"
+                    placeholder="Assigned Driver ID"
+                    className="formInput form-control"
+                    {...formik.getFieldProps("assigned_driver_id")}
+                  />
+                  {formik.touched.assigned_driver_id &&
+                  formik.errors.assigned_driver_id ? (
+                    <small className="error-message">
+                      {formik.errors.assigned_driver_id}
+                    </small>
+                  ) : null}
                 </div>
                 <div className="d-flex justify-content-center mb-4">
                   <button

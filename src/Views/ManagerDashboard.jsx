@@ -132,6 +132,7 @@ export default function ManagerDashboard() {
       {protectedRoute("Admin") ? (
         <>
           <div className="error-notification" id="badgeNotification"></div>
+          <div className="success-notification" id="badgeNotification"></div>
           <div className="container body-wrapper">
             <h4 className="page-title d-flex justify-content-center align-items-center mt-5">
               Manager Dashboard

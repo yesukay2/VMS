@@ -28,6 +28,8 @@ const RegisterVehicleValidation = Yup.object().shape({
   parking_lot: Yup.string("Parking lot is invalid").required(
     "Parking lot is required"
   ),
+  assigned_driver_id:
+    Yup.string("Driver ID invalid").required("Driver ID required"),
 });
 
 export { RegisterVehicleValidation };
