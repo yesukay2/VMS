@@ -5,6 +5,7 @@ import AdminVehicleInfo from "../Components/AdminVehicleInfo.jsx";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Atom } from "react-loading-indicators";
 
 const requireAuth = () => {
   const token = localStorage.getItem("token");
@@ -19,9 +20,8 @@ export default function AdminVehiclesPage() {
   const [vehicles, setVehicles] = useState([]);
   const [exeats, setExeats] = useState([]);
   const [editingVehicle, setEditingVehicle] = useState(null);
-  const [inTransitVehicles, setInTransitVehicles] = useState(false);
-  const [availableVehicles, setAvailableVehicles] = useState(false);
-  const [allVehicles, setAllVehicles] = useState(true);
+  const [filter, setFilter] = useState("all"); // Single state for filter
+  const [loading, setLoading] = useState(true);
 
   const getVehicles = async () => {
     await axios
@@ -82,18 +82,24 @@ export default function AdminVehiclesPage() {
   useEffect(() => {
     getVehicles();
     getExeats();
+    setLoading(false);
   }, [vehicles, exeats]);
 
-  const displayInTransitVehicles = () => {
-    setInTransitVehicles(true);
-    setAllVehicles(false);
-    setAvailableVehicles(false);
-  };
-
-  const displayAvailableVehicles = () => {
-    setAvailableVehicles(true);
-    setAllVehicles(false);
-    setInTransitVehicles(false);
+  const filterVehicles = () => {
+    switch (filter) {
+      case "inTransit":
+        return vehicles.filter((vehicle) =>
+          exeats.some((exeat) => exeat.vehicle_no === vehicle.reg_no)
+        );
+      case "available":
+        return vehicles.filter(
+          (vehicle) =>
+            !exeats.some((exeat) => exeat.vehicle_no === vehicle.reg_no)
+        );
+      case "all":
+      default:
+        return vehicles;
+    }
   };
   const handleApiError = (error) => {
     // Handle error notifications based on different error statuses
@@ -125,19 +131,37 @@ export default function AdminVehiclesPage() {
             <div className="d-flex flex-row align-items-center">
               <div
                 className="vehicle-status-menu vehicle-filter"
-                onClick={() => getVehicles() && setAllVehicles(true)}
+                onClick={() => setFilter("all")}
+                style={{
+                  background: `${
+                    filter === "all"
+                      ? `linear-gradient(180deg, #49E23E 50%, #E2DC3E 50%)`
+                      : ""
+                  }`,
+                  color: `${filter === "all" ? "var(--gray)" : ""}`,
+                }}
               >
                 All
               </div>
               <div
                 className="vehicle-status-menu vehicle-filter"
-                onClick={() => displayInTransitVehicles()}
+                onClick={() => setFilter("inTransit")}
+                style={{
+                  background: `${
+                    filter === "inTransit" ? "var(--orange)" : ""
+                  }`,
+                  color: `${filter === "inTransit" ? "var(--white)" : ""}`,
+                }}
               >
                 In Transit
               </div>
               <div
                 className="vehicle-status-menu vehicle-filter"
-                onClick={() => displayAvailableVehicles()}
+                onClick={() => setFilter("available")}
+                style={{
+                  background: `${filter === "available" ? "var(--green)" : ""}`,
+                  color: `${filter === "available" ? "var(--white)" : ""}`,
+                }}
               >
                 Available
               </div>
@@ -157,69 +181,48 @@ export default function AdminVehiclesPage() {
               </div>
               <hr className="w-100" style={{ color: "var(--orange)" }}></hr>
 
-              {allVehicles
-                ? vehicles &&
-                  vehicles.map((vehicle) => (
-                    <AdminVehicleInfo
-                      key={vehicle.reg_no}
-                      vehicleNumber={vehicle.reg_no}
-                      status={
-                        exeats.find(
-                          (exeat) => exeat.vehicle_no == vehicle.reg_no
-                        )
-                          ? "In Transit"
-                          : "Available"
-                      }
-                      vehicle_type={vehicle.vehicle_type}
-                      parking_lot={vehicle.parking_lot}
-                      editVehicle={editVehicle}
-                      cancelEdit={cancelEdit}
-                      onSave={saveVehicleChanges}
-                      deleteVehicle={deleteVehicle}
-                    />
-                  ))
-                : null}
-
-              {inTransitVehicles
-                ? vehicles &&
-                  vehicles
-                    .filter((vehicle) =>
+              {loading ? (
+                <div
+                  className="d-flex flex-row align-items-center justify-content-center"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    padding: "2rem",
+                  }}
+                >
+                  <Atom
+                    color="#32cd32"
+                    size="medium"
+                    text="Loading Data..."
+                    textColor="red"
+                  />
+                </div>
+              ) : filterVehicles().length > 0 ? (
+                filterVehicles().map((vehicle) => (
+                  <AdminVehicleInfo
+                    key={vehicle.reg_no}
+                    vehicleNumber={vehicle.reg_no}
+                    status={
                       exeats.find((exeat) => exeat.vehicle_no == vehicle.reg_no)
-                    )
-                    .map((vehicle) => (
-                      <AdminVehicleInfo
-                        key={vehicle.reg_no}
-                        vehicleNumber={vehicle.reg_no}
-                        status="In Transit"
-                        vehicle_type={vehicle.vehicle_type}
-                        parking_lot={vehicle.parking_lot}
-                        editVehicle={editVehicle}
-                        deleteVehicle={deleteVehicle}
-                      />
-                    ))
-                : null}
-
-              {availableVehicles
-                ? vehicles &&
-                  vehicles
-                    .filter(
-                      (vehicle) =>
-                        !exeats.find(
-                          (exeat) => exeat.vehicle_no == vehicle.reg_no
-                        )
-                    )
-                    .map((vehicle) => (
-                      <AdminVehicleInfo
-                        key={vehicle.reg_no}
-                        vehicleNumber={vehicle.reg_no}
-                        status="Available"
-                        vehicle_type={vehicle.vehicle_type}
-                        parking_lot={vehicle.parking_lot}
-                        editVehicle={editVehicle}
-                        deleteVehicle={deleteVehicle}
-                      />
-                    ))
-                : null}
+                        ? "In Transit"
+                        : "Available"
+                    }
+                    vehicle_type={vehicle.vehicle_type}
+                    parking_lot={vehicle.parking_lot}
+                    editVehicle={editVehicle}
+                    cancelEdit={cancelEdit}
+                    onSave={saveVehicleChanges}
+                    deleteVehicle={deleteVehicle}
+                  />
+                ))
+              ) : (
+                <div
+                  className="d-flex flex-row align-items-center justify-content-center"
+                  style={{ width: "100%" }}
+                >
+                  <h4>No Vehicles Available</h4>
+                </div>
+              )}
             </div>
           </div>
         </div>
