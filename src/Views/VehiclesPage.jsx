@@ -9,7 +9,7 @@ import { Atom } from "react-loading-indicators";
 export default function VehiclesPage() {
   const [vehicles, setVehicles] = useState([]);
   const [exeats, setExeats] = useState([]);
-  const [filter, setFilter] = useState("all"); // Single state for filter
+  const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
 
   const getData = async () => {

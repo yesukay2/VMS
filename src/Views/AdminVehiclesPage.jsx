@@ -20,7 +20,7 @@ export default function AdminVehiclesPage() {
   const [vehicles, setVehicles] = useState([]);
   const [exeats, setExeats] = useState([]);
   const [editingVehicle, setEditingVehicle] = useState(null);
-  const [filter, setFilter] = useState("all"); // Single state for filter
+  const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
 
   const getVehicles = async () => {
