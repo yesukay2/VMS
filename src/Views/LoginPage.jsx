@@ -62,7 +62,7 @@ export default function LoginPage() {
     >
       <div className="error-notification" id="badgeNotification"></div>
       <img src={logo} id="logo" alt="Company Logo" />
-      <h5 className="mb-4">Vehicle Management System ( VMS )</h5>
+      <h5 className="mb-4">AccessPoint</h5>
       <h5 className="mb-3" style={{ textDecoration: "underline" }}>
         Sign In
       </h5>
