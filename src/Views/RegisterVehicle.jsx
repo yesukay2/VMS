@@ -23,7 +23,6 @@ export default function RegisterVehicle() {
     initialValues: initialValues,
     validationSchema: RegisterVehicleValidation,
     onSubmit: async (values) => {
-      console.log(values);
       registerVehicle(values);
     },
   });
@@ -35,6 +34,7 @@ export default function RegisterVehicle() {
         "http://localhost:3000/vms/vehicle/register-vehicle",
         values
       );
+
       if (response.status === 200) {
         formik.setSubmitting(false);
         scrollTo(0, 0);
@@ -47,7 +47,6 @@ export default function RegisterVehicle() {
         formik.resetForm();
       }
     } catch (error) {
-      error;
       const badgeNotification = document.getElementById("badgeNotification");
       if (error.response.status == 400) {
         badgeNotification.innerHTML = "Bad Request";
@@ -245,19 +244,22 @@ export default function RegisterVehicle() {
                   </div>
                 </div>
                 <div className="d-flex justify-content-center mb-4">
-                  <input
-                    type="text"
-                    name="assigned_driver_id"
-                    placeholder="Assigned Driver ID"
-                    className="formInput form-control"
-                    {...formik.getFieldProps("assigned_driver_id")}
-                  />
-                  {formik.touched.assigned_driver_id &&
-                  formik.errors.assigned_driver_id ? (
-                    <small className="error-message">
-                      {formik.errors.assigned_driver_id}
-                    </small>
-                  ) : null}
+                  <div>
+                    <h6 className="form-label">Assigned Driver</h6>
+                    <input
+                      type="text"
+                      name="assigned_driver_id"
+                      placeholder="Driver ID"
+                      className="formInput form-control"
+                      {...formik.getFieldProps("assigned_driver_id")}
+                    />
+                    {formik.touched.assigned_driver_id &&
+                    formik.errors.assigned_driver_id ? (
+                      <small className="error-message">
+                        {formik.errors.assigned_driver_id}
+                      </small>
+                    ) : null}
+                  </div>
                 </div>
                 <div className="d-flex justify-content-center mb-4">
                   <button

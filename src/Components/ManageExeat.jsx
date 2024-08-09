@@ -55,11 +55,20 @@ export default function ManageExeat({
         width: "100%",
       }}
     >
+      <div className="d-flex flex-row align-items-center justify-content-around ">
+        <img
+          src={profilePic}
+          id="profilePic-sm-screen"
+          alt="Profile Picture"
+          className=" profile-picture img-fluid rounded-circle"
+        />
+      </div>
       <div className="d-flex flex-row align-items-center justify-content-between manager-dash">
-        <div className="d-flex flex-row align-items-center exeat">
+        <div className="d-flex flex-row align-items-center exeat ">
           <div className="">
             <img
               src={profilePic}
+              id="profilePic-lg-screen"
               alt="Profile Picture"
               className=" profile-picture img-fluid rounded-circle"
             />
@@ -143,9 +152,36 @@ export default function ManageExeat({
               </span>
               {purpose}
             </p>
+            <div
+              className="d-flex flex-column justify-content-between actionButtons-sm-screen"
+              id="actionButtons-sm-screen"
+              style={{ marginTop: "1rem" }}
+            >
+              <button
+                className="btn timeIn-btn mb-3"
+                onClick={() => approvalTime()}
+                disabled={approvedTime.length > 0 || rejectedTime.length > 0}
+                value={approvedTime}
+              >
+                {approvedTime === "" ? "Approve" : approvedTime}
+              </button>
+
+              <button
+                className="btn timeOut-btn"
+                onClick={() => rejectTime()}
+                disabled={rejectedTime.length > 0}
+                value={rejectedTime}
+              >
+                {rejectedTime === "" ? "Reject" : rejectedTime}
+              </button>
+            </div>
           </div>
         </div>
-        <div className="d-flex flex-column justify-content-between">
+        <div
+          className="d-flex flex-column justify-content-between actionButtons-lg-screen"
+          id="actionButtons-lg-screen"
+          style={{ display: "block" }}
+        >
           <button
             className="btn timeIn-btn mb-3"
             onClick={() => approvalTime()}

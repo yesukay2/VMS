@@ -8,6 +8,7 @@ const VehicleSchema = new mongoose.Schema({
   chassis_no: { type: String, required: true },
   color: { type: String, required: true },
   parking_lot: { type: String, required: true },
+  assigned_driver_id: { type: String, required: true },
   date: { type: String },
 });
 

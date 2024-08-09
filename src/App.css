@@ -527,8 +527,12 @@ footer {
 }
 
 
+
+
+
+
 /* media queries */
-@media screen and (max-width: 990px) {
+@media screen and (max-width: 600px) {
     .navbar-toggler {
         display: block;
         font-size: 1rem;
@@ -543,6 +547,8 @@ footer {
         margin-top: 0.1rem;
         margin-right: 1.5rem;
     }
+
+
 
     .register-vehicle {
         flex-direction: column;
@@ -574,12 +580,24 @@ footer {
         border: 1px solid var(--green);
     }
 
-    .resolve-btn-1 {
+    .resolve-btn {
         display: none;
     }
 
-    .profile-picture {
+    #profilePic-lg-screen {
         display: none;
+    }
+
+    #profilePic-sm-screen {
+        display: block;
+    }
+
+    .actionButtons-lg-screen {
+        display: none !important;
+    }
+
+    .actionButtons-sm-screen {
+        display: block;
     }
 
     .requestInputCluster {
@@ -599,11 +617,6 @@ footer {
         display: none;
     }
 
-    .timeOut-btn,
-    .timeIn-btn {
-        width: 5rem;
-        margin-right: 1.5rem;
-    }
 
     .approved-time {
         width: 5rem;
@@ -627,7 +640,7 @@ footer {
 }
 
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 600px) {
     .formInput {
         margin-right: 1rem;
 
@@ -635,5 +648,10 @@ footer {
 
     .resolve-btn-2 {
         display: none;
+    }
+
+    #profilePic-sm-screen,
+    .actionButtons-sm-screen {
+        display: none !important;
     }
 }

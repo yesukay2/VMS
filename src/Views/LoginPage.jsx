@@ -7,11 +7,13 @@ import { useNavigate } from "react-router-dom";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [logging, setLogging] = useState(false);
 
   const navigate = useNavigate();
   const loginAction = async (e) => {
     e.preventDefault();
     try {
+      setLogging(true);
       await axios
         .post(
           "http://localhost:3000/vms/login",
@@ -40,7 +42,6 @@ export default function LoginPage() {
           }
         });
     } catch (error) {
-      
       if (error.response) {
         document.getElementById("badgeNotification").innerHTML =
           error.response.data.message;
@@ -49,6 +50,8 @@ export default function LoginPage() {
           document.getElementById("badgeNotification").style.display = "none";
         }, 3000);
       }
+    } finally {
+      setLogging(false);
     }
   };
 
@@ -89,9 +92,9 @@ export default function LoginPage() {
           className="btn align-text-center submit-btn-green"
           style={{ fontSize: "0.8rem" }}
           type="submit"
-          disabled={email && password ? false : true}
+          disabled={!email && !password ? true : logging ? true : false}
         >
-          Sign In
+          {logging ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>

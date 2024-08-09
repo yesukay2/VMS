@@ -179,7 +179,7 @@ export default function ExeatsPage() {
         `http://localhost:3000/vms/checkpoint/record-timeOut/${id}`,
         { timeOut }
       );
-      getApprovedExeats(); // Refresh the data after updating
+      getApprovedExeats();
     } catch (error) {
       console.log(error);
     }
@@ -192,7 +192,7 @@ export default function ExeatsPage() {
         `http://localhost:3000/vms/checkpoint/record-timeIn/${id}`,
         { timeIn, status: "Resolved" }
       );
-      getApprovedExeats(); // Refresh the data after updating
+      getApprovedExeats();
     } catch (error) {
       console.log(error);
     }
