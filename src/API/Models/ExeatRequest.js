@@ -6,7 +6,7 @@ const ExeatRequestSchema = new mongoose.Schema({
   driver_id: { type: String, required: true },
   driver_name: { type: String, required: true },
   accomp_staff_id: { type: String, required: false },
-  accomp_staff_name: { type: String, required: true },
+  accomp_staff_name: { type: String, required: false },
   purpose: { type: String, required: true },
   signatory: { type: String, required: true },
   status: { type: String, default: "Pending" },
