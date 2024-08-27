@@ -1,5 +1,5 @@
 import "../App.css";
-import logo from "/src/assets/carLogo.png";
+import logo from "/src/assets/accesspoint.png";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -56,47 +56,53 @@ export default function LoginPage() {
   };
 
   return (
-    <div
-      className="d-flex justify-content-center align-items-center flex-column"
-      id="loginPage"
-    >
-      <div className="error-notification" id="badgeNotification"></div>
-      <img src={logo} id="logo" alt="Company Logo" />
-      <h5 className="mb-4">AccessPoint</h5>
-      <h5 className="mb-3" style={{ textDecoration: "underline" }}>
-        Sign In
-      </h5>
-
-      <form
-        className="mb-3 text-center"
-        id="loginForm"
-        onSubmit={(e) => loginAction(e)}
+    <div>
+      <div
+        className="d-flex justify-content-center align-items-center flex-column"
+        id="loginPage"
+        style={{ overflow: "hidden", marginTop: "1rem" }}
       >
-        <input
-          type="email"
-          className="form-control mb-4 formInput"
-          placeholder="Email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+        <div className="error-notification" id="badgeNotification"></div>
+        <img
+          src={logo}
+          alt="Company Logo"
+          style={{ height: "8rem", marginTop: "1rem" }}
         />
-        <input
-          type="password"
-          className="form-control mb-4 formInput"
-          name="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button
-          className="btn align-text-center submit-btn-green"
-          style={{ fontSize: "0.8rem" }}
-          type="submit"
-          disabled={!email && !password ? true : logging ? true : false}
+        <h5 className="mb-2 mt-0" style={{ textDecoration: "underline" }}>
+          Sign In
+        </h5>
+
+        <form
+          className="mb-3 text-center"
+          id="loginForm"
+          onSubmit={(e) => loginAction(e)}
         >
-          {logging ? "Logging in..." : "Login"}
-        </button>
-      </form>
+          <input
+            type="email"
+            className="form-control mb-4 formInput"
+            placeholder="Email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            className="form-control mb-4 formInput"
+            name="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            className="btn align-text-center login-btn-green"
+            style={{ fontSize: "0.8rem", marginBottom: "0px" }}
+            type="submit"
+            disabled={!email || !password ? true : logging ? true : false}
+          >
+            {logging ? "Logging in..." : "Login"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

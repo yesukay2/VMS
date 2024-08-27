@@ -26,9 +26,7 @@ body {
     line-height: 1.6;
     color: var(--black);
     min-height: 100%;
-    margin-top: 60px;
-    margin-bottom: 100px;
-
+    /* margin-bottom: 100px; */
 }
 
 .body-wrapper {
@@ -52,7 +50,6 @@ body {
 .page-title {
     text-decoration: underline;
     font-weight: bold;
-    margin-top: 3rem;
     color: var(--black);
 }
 
@@ -64,7 +61,6 @@ body {
 
 
 #navbar {
-    height: 4rem;
     border-bottom: 0.1px solid var(--grey);
     z-index: 999;
     background: var(--white);
@@ -75,13 +71,12 @@ body {
 }
 
 #logo {
-    width: 7rem;
-    height: 7rem;
-    border-radius: 100%;
+    width: 9rem;
+    height: 9rem;
     object-fit: fill;
-    margin: 0 auto;
+    margin-top: 1rem;
     display: block;
-    margin-top: 4rem;
+    margin-bottom: 1rem;
 }
 
 .nav_toggle_btn {
@@ -142,6 +137,7 @@ body {
     background: var(--white);
     border-top: 0.1px solid var(--grey);
     padding: 1rem;
+
 }
 
 footer {
@@ -158,12 +154,37 @@ footer {
     border-top: 1px solid var(--deep-orange);
 }
 
+.my-link {
+    color: #1a9b21;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.my-link:hover {
+    cursor: pointer;
+}
 
 
 /* form */
 #loginPage {
     height: 100%;
     overflow-y: hidden;
+    background-color: var(--grey);
+    width: 35%;
+    margin: auto;
+    margin-bottom: 0%;
+    padding-bottom: 0%;
+    border-radius: 0.2rem;
+}
+
+.login-btn-green {
+    background: var(--green);
+    color: var(--white);
+}
+
+.login-btn-green:hover {
+    background: var(--orange);
+    color: var(--white);
 }
 
 .form-wrapper {
@@ -194,6 +215,17 @@ footer {
     padding-left: 0.5rem;
     margin-top: 1rem;
 }
+
+.formInput:focus {
+    /* outline: none; */
+    border: 1px solid var(--green);
+    box-shadow: 1px 1px 1px var(--green);
+}
+
+.formInput::placeholder {
+    font-size: 0.7rem;
+}
+
 
 .requestformInput {
     margin-left: 1rem;
@@ -563,9 +595,7 @@ footer {
         margin-top: 2rem;
     }
 
-    #logo {
-        display: none;
-    }
+
 
 
     .formInput {

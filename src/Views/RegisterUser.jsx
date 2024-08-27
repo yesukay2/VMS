@@ -101,7 +101,7 @@ export default function RegisterUser() {
           <div className="error-notification" id="badgeNotification"></div>
           <div
             className="d-flex justify-content-center align-items-center flex-column"
-            style={{ top: "auto", marginTop: "8rem" }}
+            style={{ height: "100vh" }}
           >
             <h5 className="mb-1" style={{ textDecoration: "underline" }}>
               Register Employee

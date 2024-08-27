@@ -302,7 +302,11 @@ export default function RequestExeat() {
                 </div>
 
                 <div className="submit-btn-wrapper mt-5">
-                  <button type="submit" className="btn submit-btn-orange">
+                  <button
+                    type="submit"
+                    className="btn submit-btn-orange"
+                    style={{ fontSize: "0.8rem" }}
+                  >
                     Submit Request
                   </button>
                 </div>

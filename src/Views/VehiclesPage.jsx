@@ -33,7 +33,7 @@ export default function VehiclesPage() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [vehicles, exeats]);
 
   const filterVehicles = () => {
     switch (filter) {

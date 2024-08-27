@@ -33,13 +33,18 @@ export default function Header() {
 
   return (
     <nav
-      className="navbar navbar-expand-lg navbar-light bg-light mt-0 fixed-top"
+      className="navbar navbar-expand-lg navbar-light bg-light mt-0"
       style={{
         backgroundColor: "#f8f9fa",
         marginTop: 0,
-        position: "fixed",
+        zIndex: 1,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        position: "sticky",
         top: 0,
         width: "100%",
+        padding: "0.rem",
       }}
     >
       <div className="container-fluid">
